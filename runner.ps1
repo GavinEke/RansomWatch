@@ -25,7 +25,7 @@ ForEach ($Item in $jsonDiff) {
         "Body" = $TeamsMessageBody
         "ContentType" = 'application/json'
     }
-    Invoke-RestMethod @parameters
+    Invoke-RestMethod @IRMParams
 }
 
 # Override data.json with new data
