@@ -5,18 +5,26 @@ on:
 permissions:
   contents: write
 jobs:
-  daily-run:
+  hourly-run:
     runs-on: windows-latest
+    outputs:
+      output: ${{ steps.powershell-runner-script.outputs.output }}
     steps:
       - uses: actions/checkout@v4
       - name: Run the PowerShell runner script
         env:
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        id: powershell-runner-script
         run: |
           pwsh -File ./runner.ps1
       - name: Push new data.json into master repo
+        id: git-push
+        env:
+          PWSH_OUTPUT: ${{needs.hourly-run.outputs.output}}
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git commit -am "data.json update"
-          git push
+          if ($env:PWSH_OUTPUT -eq 'NewPosts') {
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git commit -am "data.json update"
+            git push
+          }
