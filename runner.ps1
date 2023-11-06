@@ -13,9 +13,9 @@ if ($jsonDiff) {
             "summary" = "RansomWatch Alert!: $($Item.InputObject.post_title)"
             "themeColor" = '0078D7'
             "title" = "RansomWatch Alert!"
-            "text" = "\nCompany: $($Item.InputObject.post_title)" +
-                "\nRansom Group: $($Item.InputObject.group_name)" +
-                "\nDiscovered: $($Item.InputObject.discovered)"
+            "text" = "<pre>Company: $($Item.InputObject.post_title)" +
+                "<br>Ransom Group: $($Item.InputObject.group_name)" +
+                "<br>Discovered: $($Item.InputObject.discovered)</pre>"
         }
         $TeamsMessageBody = ConvertTo-Json $JSONBody
 
