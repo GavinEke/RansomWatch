@@ -1,6 +1,7 @@
 # Get data and diff
 $oldJson = Get-Content -Raw -Path data.json | ConvertFrom-Json
-$newJson = Invoke-WebRequest -Uri https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json | ConvertFrom-Json
+$onlineJson = Invoke-WebRequest -Uri https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+$newJson = $onlineJson | ConvertFrom-Json
 $jsonDiff = Compare-Object $oldJson $newJson
 
 if ($jsonDiff) {
@@ -30,7 +31,7 @@ if ($jsonDiff) {
     }
 
     # Override data.json with new data and git push
-    $newJson | Out-File data.json -Force
+    $onlineJson | Out-File data.json -Force
     git config --global user.name 'github-actions[bot]'
     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
     git commit -am "data.json update"
