@@ -1,6 +1,6 @@
 # Get data and diff
 $oldJson = Get-Content -Raw -Path data.json | ConvertFrom-Json
-$onlineJson = Invoke-WebRequest -Uri https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+$onlineJson = Invoke-WebRequest -Uri https://raw.githubusercontent.com/GavinEke/OGransomwatch/main/posts.json
 $newJson = $onlineJson | ConvertFrom-Json
 $jsonDiff = Compare-Object $oldJson $newJson
 
