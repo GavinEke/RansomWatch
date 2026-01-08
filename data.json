@@ -83933,5 +83933,10 @@
         "post_title": "Fedcap",
         "group_name": "ransomhouse",
         "discovered": "2026-01-08 14:03:30.631086"
+    },
+    {
+        "post_title": "[DISCLOSED]Assolim",
+        "group_name": "ransomhouse",
+        "discovered": "2026-01-08 14:53:21.014672"
     }
 ]
