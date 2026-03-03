@@ -85113,5 +85113,20 @@
         "post_title": "Aramco Hacked",
         "group_name": "handala",
         "discovered": "2026-03-03 16:11:23.770321"
+    },
+    {
+        "post_title": "Equine Canada",
+        "group_name": "play",
+        "discovered": "2026-03-03 19:07:42.264499"
+    },
+    {
+        "post_title": "GapVax",
+        "group_name": "play",
+        "discovered": "2026-03-03 19:07:42.372288"
+    },
+    {
+        "post_title": "www.chrishudsonlaw.com",
+        "group_name": "incransom",
+        "discovered": "2026-03-03 19:07:56.205487"
     }
 ]
