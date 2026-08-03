@@ -87308,5 +87308,10 @@
         "post_title": "ecfa.org",
         "group_name": "incransom",
         "discovered": "2026-08-02 22:21:15.228184"
+    },
+    {
+        "post_title": "[DISCLOSED]Fidelity Services Group",
+        "group_name": "ransomhouse",
+        "discovered": "2026-08-03 12:44:34.172533"
     }
 ]
