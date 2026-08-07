@@ -87418,5 +87418,10 @@
         "post_title": "ATMS",
         "group_name": "incransom",
         "discovered": "2026-08-07 13:27:58.587838"
+    },
+    {
+        "post_title": "Alya Construtora",
+        "group_name": "ransomhouse",
+        "discovered": "2026-08-07 15:15:08.954193"
     }
 ]
