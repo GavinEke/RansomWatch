@@ -87473,5 +87473,20 @@
         "post_title": "[DISCLOSED]City of Beacon",
         "group_name": "ransomhouse",
         "discovered": "2026-08-12 13:35:32.477429"
+    },
+    {
+        "post_title": "BEDC.COM.AU",
+        "group_name": "incransom",
+        "discovered": "2026-08-12 15:21:56.056752"
+    },
+    {
+        "post_title": "diabetesandmetabolism.com",
+        "group_name": "incransom",
+        "discovered": "2026-08-12 15:21:56.192887"
+    },
+    {
+        "post_title": "stuartandassociates.com",
+        "group_name": "incransom",
+        "discovered": "2026-08-12 15:21:56.372539"
     }
 ]
