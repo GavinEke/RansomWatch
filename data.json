@@ -87508,5 +87508,10 @@
         "post_title": "[DISCLOSED]TECHVENTURES BANK S.A.",
         "group_name": "ransomhouse",
         "discovered": "2026-08-13 22:20:03.030653"
+    },
+    {
+        "post_title": "cambrialawfirm.com",
+        "group_name": "incransom",
+        "discovered": "2026-08-13 23:12:18.780866"
     }
 ]
