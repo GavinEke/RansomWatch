@@ -87773,5 +87773,40 @@
         "post_title": "specialtytextile.com",
         "group_name": "incransom",
         "discovered": "2026-09-02 13:43:23.759691"
+    },
+    {
+        "post_title": "[EVIDENCE]REXT Holdings Co., Ltd.",
+        "group_name": "ransomhouse",
+        "discovered": "2026-09-02 18:05:36.358502"
+    },
+    {
+        "post_title": "Asfaltos y Pavimentos S.A. (Asfalpasa)",
+        "group_name": "incransom",
+        "discovered": "2026-09-02 18:06:14.850862"
+    },
+    {
+        "post_title": "Metales Panamericanos",
+        "group_name": "incransom",
+        "discovered": "2026-09-02 18:06:14.980320"
+    },
+    {
+        "post_title": "Multiver Ltée",
+        "group_name": "incransom",
+        "discovered": "2026-09-02 18:06:15.078443"
+    },
+    {
+        "post_title": "Policlinico Triestino",
+        "group_name": "incransom",
+        "discovered": "2026-09-02 18:06:15.209500"
+    },
+    {
+        "post_title": "Trucka",
+        "group_name": "incransom",
+        "discovered": "2026-09-02 18:06:15.307578"
+    },
+    {
+        "post_title": "Westfield Public School District",
+        "group_name": "incransom",
+        "discovered": "2026-09-02 18:06:15.404751"
     }
 ]
