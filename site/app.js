@@ -83,12 +83,20 @@ function renderMetrics() {
   const listedCount = sightings.filter((item) => normalizedState(item.listing_state) === "listed").length;
   const sourceTotal = (dataset.sources || []).length;
   const sourceOk = sourceCount("ok");
+  const skippedInactive = sourceCount("skipped_inactive");
+  const skippedRemoved = sourceCount("not_in_catalog");
+  const skippedUnscoped = sourceCount("skipped_unscoped_catalog");
+  const skippedBudget = sourceCount("skipped_budget");
+  const skippedTotal = skippedInactive + skippedRemoved + skippedUnscoped + skippedBudget;
+  const checkedTotal = Math.max(0, sourceTotal - skippedTotal);
+  const failedTotal = Math.max(0, checkedTotal - sourceOk);
+  const profileIssues = (dataset.groups || []).filter((group) => group.source_issue && group.source_issue !== "ok").length;
   const groupCount = (dataset.groups || []).length;
   setText(elements.total, sightings.length.toLocaleString());
   setText(elements.listed, listedCount.toLocaleString());
   setText(elements.groups, groupCount.toLocaleString());
   setText(elements.sources, sourceTotal.toLocaleString());
-  setText(elements.coverageCaption, sourceOk + " successful");
+  setText(elements.coverageCaption, checkedTotal + " checked · " + skippedTotal + " skipped");
   elements.updated.textContent = dataset.updated_at
     ? "Last crawl " + displayDate(dataset.updated_at, true) + " UTC"
     : "No crawl has completed yet";
@@ -98,14 +106,20 @@ function renderMetrics() {
     const status = source.status || "unknown";
     statusCounts.set(status, (statusCounts.get(status) || 0) + 1);
   }
-  const failed = sourceTotal - sourceOk;
   elements.coverageSummary.textContent = sourceTotal
-    ? sourceOk + " of " + sourceTotal + " source" + (sourceTotal === 1 ? "" : "s") +
-      " returned a complete listing; " + failed + " need attention."
+    ? sourceOk + " of " + checkedTotal + " checked sources returned a complete first-page listing; " +
+      failedTotal + " need attention; " + skippedBudget + " skipped by the time budget; " +
+      skippedInactive + " skipped because the group is not active; " + skippedUnscoped +
+      " skipped until the catalog is refreshed; " + skippedRemoved + " no longer in the catalog." +
+      (profileIssues ? " " + profileIssues + " group profile issue(s) were reported." : "") +
+      (dataset.crawl_partial ? " This crawl is partial; skipped sightings remain unknown." : "")
     : "No direct leak-site sources are present in the latest group catalog.";
   elements.coverageDetails.replaceChildren();
 
-  const displayOrder = ["ok", "partial", "offline", "unsupported", "not_in_catalog"];
+  const displayOrder = [
+    "ok", "partial", "offline", "unsupported", "skipped_budget", "skipped_inactive",
+    "skipped_unscoped_catalog", "not_in_catalog",
+  ];
   for (const status of displayOrder) {
     const count = statusCounts.get(status) || 0;
     if (!count) continue;

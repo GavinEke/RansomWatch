@@ -4,13 +4,13 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 import hashlib
 import json
 import re
 import sys
 import time
 import unicodedata
-from collections import deque
 from pathlib import Path
 from typing import Callable
 from urllib.parse import parse_qs, unquote, urljoin, urlparse, urlunsplit
@@ -23,7 +23,9 @@ from json_io import read_json, utc_now, write_json_atomic
 ROOT = Path(__file__).resolve().parents[1]
 GROUPS_PATH = ROOT / "site" / "data" / "groups.json"
 OUTPUT_PATH = ROOT / "site" / "data" / "victims.json"
-MAX_LISTING_PAGES = 25
+MAX_CONCURRENCY = 3
+FETCH_DEADLINE_SECONDS = 25.0
+CRAWL_BUDGET_SECONDS = 90 * 60
 REQUEST_DELAY_SECONDS = 0.8
 VICTIM_HEADERS = ("victim", "company", "organization", "organisation", "target", "entity")
 NAME_HEADERS = {"name", "company name", "victim name", "organization name", "organisation name"}
@@ -336,8 +338,9 @@ def crawl_site(
     *,
     group_id: str = "",
     fetcher=fetch_html,
-    sleep=time.sleep,
+    deadline_seconds: float = FETCH_DEADLINE_SECONDS,
 ) -> dict:
+    """Fetch and parse exactly the initial listing page for a source."""
     try:
         normalized_source = normalize_url(source_url)
         source_id = source_id_for(normalized_source, group_id)
@@ -350,88 +353,85 @@ def crawl_site(
             "source_host": "",
             "status": "unsupported",
             "error": exc.code,
+            "error_type": getattr(exc, "cause_type", None),
             "pages_scanned": 0,
             "records": [],
             "parser": None,
+            "http_status": getattr(exc, "http_status", None),
         }
 
-    queue = deque([normalized_source])
-    visited: set[str] = set()
-    records: list[dict] = []
-    parser_names: set[str] = set()
+    try:
+        response = fetcher(normalized_source, total_timeout=deadline_seconds)
+    except FetchError as exc:
+        unsupported = exc.code in {
+            "invalid_url", "unsupported_scheme", "unsupported_content_type",
+            "blocked_private_target", "unsupported_layout",
+        }
+        return {
+            "source_id": source_id,
+            "source_host": source_host,
+            "status": "unsupported" if unsupported else "offline",
+            "error": exc.code,
+            "error_type": getattr(exc, "cause_type", None),
+            "pages_scanned": 0,
+            "records": [],
+            "parser": None,
+            "http_status": getattr(exc, "http_status", None),
+        }
+    except Exception as exc:
+        return {
+            "source_id": source_id,
+            "source_host": source_host,
+            "status": "offline",
+            "error": "fetch_error",
+            "error_type": type(exc).__name__,
+            "pages_scanned": 0,
+            "records": [],
+            "parser": None,
+            "http_status": None,
+        }
+
+    response_host = (urlparse(response.url).hostname or "").casefold()
     error: str | None = None
-    recognized_pages = 0
-    crawl_hostname: str | None = None
-
-    while queue and len(visited) < MAX_LISTING_PAGES:
-        page_url = queue.popleft()
-        try:
-            canonical_page = _canonical_source_url(page_url)
-        except FetchError:
-            continue
-        if canonical_page in visited:
-            continue
-        visited.add(canonical_page)
-
-        try:
-            response = fetcher(page_url)
-        except FetchError as exc:
-            error = exc.code
-            break
-        response_host = (urlparse(response.url).hostname or "").casefold()
-        if not response_host:
-            error = "invalid_response_url"
-            break
-        if crawl_hostname is None:
-            crawl_hostname = response_host
-        elif response_host != crawl_hostname:
-            error = "redirect_host_changed"
-            break
-        try:
-            parsed = parse_listing(response.body, response.url)
-        except Exception:
-            error = "parser_error"
-            break
-        if not parsed["recognized"]:
-            error = "unsupported_layout"
-            break
-
-        recognized_pages += 1
-        if parsed["parser"]:
-            parser_names.add(parsed["parser"])
-        records.extend(parsed["records"])
-        for pagination_url in parsed["pagination_urls"]:
-            try:
-                candidate = normalize_url(pagination_url)
-            except FetchError:
-                continue
-            if (urlparse(candidate).hostname or "").casefold() == crawl_hostname:
-                key = _canonical_source_url(candidate)
-                if key not in visited:
-                    queue.append(candidate)
-        if queue:
-            sleep(REQUEST_DELAY_SECONDS)
-
-    if queue and len(visited) >= MAX_LISTING_PAGES:
-        error = "pagination_limit"
-
-    if recognized_pages == 0:
-        status = "unsupported" if error == "unsupported_layout" or error == "unsupported_content_type" else "offline"
-    elif error:
-        status = "partial"
+    error_type: str | None = None
+    parsed_result: dict | None = None
+    if not response_host:
+        error = "invalid_response_url"
+    elif response_host != source_host:
+        error = "redirect_host_changed"
     else:
-        status = "ok"
+        try:
+            parsed_result = parse_listing(response.body, response.url)
+            if not parsed_result["recognized"]:
+                error = "unsupported_layout"
+        except Exception as exc:
+            error = "parser_error"
+            error_type = type(exc).__name__
+
+    if error:
+        return {
+            "source_id": source_id,
+            "source_host": response_host or source_host,
+            "status": "unsupported" if error == "unsupported_layout" else "offline",
+            "error": error,
+            "error_type": error_type,
+            "pages_scanned": 1 if response_host else 0,
+            "records": [],
+            "parser": None,
+            "http_status": getattr(response, "status_code", None),
+        }
 
     return {
         "source_id": source_id,
-        "source_host": crawl_hostname or source_host,
-        "status": status,
-        "error": error,
-        "pages_scanned": len(visited),
-        "records": _dedupe_records(records),
-        "parser": ", ".join(sorted(parser_names)) if parser_names else None,
+        "source_host": response_host,
+        "status": "ok",
+        "error": None,
+        "error_type": None,
+        "pages_scanned": 1,
+        "records": _dedupe_records(parsed_result["records"]),
+        "parser": parsed_result.get("parser"),
+        "http_status": getattr(response, "status_code", None),
     }
-
 
 def merge_source_result(
     existing_sightings: list[dict],
@@ -481,10 +481,9 @@ def merge_source_result(
             continue
         if sighting_id in current_ids:
             continue
-        if result.get("status") == "ok":
-            sighting["listing_state"] = "not_seen"
-        else:
-            sighting["listing_state"] = "unknown"
+        # A one-page check cannot establish that a historical listing was
+        # removed, so absence from page one always remains unknown.
+        sighting["listing_state"] = "unknown"
 
     return sorted(
         existing_by_id.values(),
@@ -497,17 +496,36 @@ def merge_source_result(
     )
 
 
-def _group_status(source_results: list[dict]) -> str:
+def _group_status(source_results: list[dict], group_status: str = "active") -> str:
+    if group_status.casefold() != "active":
+        return "skipped_inactive"
     if not source_results:
         return "no_source"
     statuses = {item["status"] for item in source_results}
     if statuses == {"ok"}:
         return "ok"
-    if statuses.issubset({"offline"}):
+    if statuses == {"skipped_budget"}:
+        return "skipped_budget"
+    if statuses == {"skipped_unscoped_catalog"}:
+        return "skipped_unscoped_catalog"
+    if statuses == {"offline"}:
         return "offline"
-    if statuses.issubset({"unsupported"}):
+    if statuses == {"unsupported"}:
         return "unsupported"
+    if statuses == {"skipped_inactive"}:
+        return "skipped_inactive"
     return "partial"
+
+
+def _safe_source_host(url: str) -> str:
+    try:
+        return (urlparse(url).hostname or "").casefold()
+    except ValueError:
+        return ""
+
+
+def _emit(message: str) -> None:
+    print(message, flush=True)
 
 
 def crawl_catalog(
@@ -515,8 +533,13 @@ def crawl_catalog(
     previous: dict | None = None,
     *,
     fetcher=fetch_html,
+    budget_seconds: float = CRAWL_BUDGET_SECONDS,
+    fetch_deadline_seconds: float = FETCH_DEADLINE_SECONDS,
+    request_delay_seconds: float = REQUEST_DELAY_SECONDS,
+    max_concurrency: int = MAX_CONCURRENCY,
     sleep=time.sleep,
 ) -> dict:
+    """Crawl active first-page sources, deduplicating URLs and retaining history."""
     groups = catalog.get("groups")
     if not isinstance(groups, list):
         raise ValueError("Group catalog has no groups list")
@@ -525,6 +548,8 @@ def crawl_catalog(
 
     previous = previous or {}
     run_at = utc_now()
+    crawl_started = time.monotonic()
+    deadline = crawl_started + max(0.0, float(budget_seconds))
     sightings = [dict(item) for item in previous.get("sightings", []) if isinstance(item, dict)]
     source_records: dict[str, dict] = {
         str(item["source_id"]): dict(item)
@@ -532,63 +557,348 @@ def crawl_catalog(
         if isinstance(item, dict) and item.get("source_id")
     }
     current_source_ids: set[str] = set()
-    group_summaries: list[dict] = []
+    active_urls: dict[str, dict] = {}
+    group_by_id: dict[str, dict] = {}
+    group_source_ids: dict[str, list[str]] = {}
+    active_group_ids: set[str] = set()
+    inactive_group_ids: set[str] = set()
+    active_assignment_count = 0
 
     for group in groups:
         if not isinstance(group, dict) or not group.get("group_id"):
             continue
-        group_results: list[dict] = []
+        group_id = str(group["group_id"])
+        group_by_id[group_id] = group
+        group_source_ids[group_id] = []
+        if str(group.get("status") or "unknown").casefold() == "active":
+            active_group_ids.add(group_id)
+        else:
+            inactive_group_ids.add(group_id)
+
         sources = group.get("leak_sites") or []
         for source in sources:
             if not isinstance(source, dict) or not source.get("url"):
                 continue
-            result = crawl_site(
-                str(source["url"]),
-                group_id=str(group["group_id"]),
-                fetcher=fetcher,
-                sleep=sleep,
-            )
-            current_source_ids.add(result["source_id"])
-            sightings = merge_source_result(sightings, group, source, result, run_at)
-            source_record = {
-                "source_id": result["source_id"],
+            raw_url = str(source["url"])
+            try:
+                canonical_url = _canonical_source_url(raw_url)
+                source_id = source_id_for(canonical_url, group_id)
+                host = _safe_source_host(canonical_url)
+                url_error = None
+            except FetchError as exc:
+                canonical_url = ""
+                source_id = hashlib.sha256((group_id.casefold() + "\0" + raw_url).encode("utf-8")).hexdigest()[:20]
+                host = ""
+                url_error = exc.code
+
+            if source_id in group_source_ids[group_id]:
+                continue
+            current_source_ids.add(source_id)
+            group_source_ids[group_id].append(source_id)
+            if group_id not in active_group_ids:
+                prior = source_records.get(source_id, {})
+                record = {
+                    **prior,
+                    "source_id": source_id,
+                    "group_id": group_id,
+                    "group_name": str(group.get("name") or group_id),
+                    "source_host": prior.get("source_host") or host,
+                    "status": "skipped_inactive",
+                    "status_updated_at": run_at,
+                    "pages_scanned": 0,
+                    "victims_found": 0,
+                    "error": None,
+                    "watchguard_profile_url": str(group.get("profile_url") or ""),
+                }
+                source_records[source_id] = record
+                for sighting in sightings:
+                    if sighting.get("source_id") == source_id:
+                        sighting["listing_state"] = "unknown"
+                continue
+
+            if group.get("leak_sites_scope") != "extortion_links":
+                prior = source_records.get(source_id, {})
+                source_records[source_id] = {
+                    **prior,
+                    "source_id": source_id,
+                    "group_id": group_id,
+                    "group_name": str(group.get("name") or group_id),
+                    "source_host": prior.get("source_host") or host,
+                    "status": "skipped_unscoped_catalog",
+                    "status_updated_at": run_at,
+                    "pages_scanned": 0,
+                    "victims_found": 0,
+                    "error": "missing_extortion_scope",
+                    "watchguard_profile_url": str(group.get("profile_url") or ""),
+                }
+                for sighting in sightings:
+                    if sighting.get("source_id") == source_id:
+                        sighting["listing_state"] = "unknown"
+                _emit(
+                    f"source_skipped group_id={group_id} source_id={source_id} host={host or 'unknown'} "
+                    "elapsed_seconds=0.00 status=skipped_unscoped_catalog error=missing_extortion_scope"
+                )
+                continue
+
+            active_assignment_count += 1
+            if url_error:
+                result = {
+                    "source_id": source_id,
+                    "source_host": host,
+                    "status": "unsupported",
+                    "error": url_error,
+                    "error_type": None,
+                    "http_status": None,
+                    "pages_scanned": 0,
+                    "records": [],
+                    "parser": None,
+                }
+                completed_at = utc_now()
+                sightings = merge_source_result(sightings, group, source, result, completed_at)
+                source_records[source_id] = {
+                    "source_id": source_id,
+                    "group_id": group_id,
+                    "group_name": str(group.get("name") or group_id),
+                    "source_host": host,
+                    "status": result["status"],
+                    "checked_at": completed_at,
+                    "status_updated_at": completed_at,
+                    "pages_scanned": 0,
+                    "victims_found": 0,
+                    "parser": None,
+                    "error": url_error,
+                    "error_type": None,
+                    "http_status": None,
+                    "watchguard_profile_url": str(group.get("profile_url") or ""),
+                }
+                _emit(
+                    f"source_error group_id={group_id} source_id={source_id} host=unknown "
+                    f"elapsed_seconds=0.00 status=unsupported error={url_error} progress=local_validation"
+                )
+                continue
+
+            entry = active_urls.setdefault(canonical_url, {
+                "url": canonical_url,
+                "host": host,
+                "associations": [],
+            })
+            if not any(item["source_id"] == source_id for item in entry["associations"]):
+                entry["associations"].append({"group": group, "source": source, "source_id": source_id})
+
+    pending = [active_urls[key] for key in sorted(active_urls)]
+    unique_url_count = len(pending)
+    worker_count = max(1, min(3, int(max_concurrency)))
+    _emit(
+        "crawl_started "
+        f"active_groups={len(active_group_ids)} non_active_groups={len(inactive_group_ids)} "
+        f"eligible_group_sources={active_assignment_count} unique_urls={unique_url_count} "
+        f"workers={worker_count} fetch_deadline_seconds={fetch_deadline_seconds:g} "
+        f"crawl_budget_seconds={max(0.0, float(budget_seconds)):g}"
+    )
+
+    completed_unique = 0
+    last_host_start: dict[str, float] = {}
+    in_flight: dict[Future, tuple[dict, float]] = {}
+    budget_skipped: list[dict] = []
+
+    def store_completed(entry: dict, result: dict, started_at: float) -> None:
+        nonlocal sightings, completed_unique
+        completed_unique += 1
+        elapsed = time.monotonic() - started_at
+        completed_at = utc_now()
+        associations = entry["associations"]
+        group_ids = ",".join(str(item["group"]["group_id"]) for item in associations)
+        association_source_ids = ",".join(item["source_id"] for item in associations)
+        for association in associations:
+            group = association["group"]
+            source = association["source"]
+            source_id = association["source_id"]
+            attributed_result = {**result, "source_id": source_id}
+            sightings = merge_source_result(sightings, group, source, attributed_result, completed_at)
+            source_records[source_id] = {
+                "source_id": source_id,
                 "group_id": str(group["group_id"]),
                 "group_name": str(group.get("name") or group["group_id"]),
-                "source_host": result.get("source_host") or "",
+                "source_host": result.get("source_host") or entry["host"],
                 "status": result["status"],
-                "checked_at": run_at,
-                "pages_scanned": result["pages_scanned"],
-                "victims_found": len(result["records"]),
+                "checked_at": completed_at,
+                "status_updated_at": completed_at,
+                "pages_scanned": result.get("pages_scanned", 0),
+                "victims_found": len(result.get("records", [])),
                 "parser": result.get("parser"),
                 "error": result.get("error"),
+                "error_type": result.get("error_type"),
+                "http_status": result.get("http_status"),
                 "watchguard_profile_url": str(group.get("profile_url") or ""),
             }
-            source_records[result["source_id"]] = source_record
-            group_results.append(source_record)
-            sleep(REQUEST_DELAY_SECONDS)
+        detail = (
+            f"http_status={result.get('http_status')}"
+            if result.get("http_status") is not None
+            else f"error={result.get('error') or 'unknown'}"
+        )
+        if result.get("error_type"):
+            detail += f" error_type={result['error_type']}"
+        _emit(
+            f"source_complete progress={completed_unique}/{unique_url_count} "
+            f"group_ids={group_ids} source_ids={association_source_ids} host={entry['host'] or 'unknown'} "
+            f"elapsed_seconds={elapsed:.2f} status={result['status']} {detail} "
+            f"pages={result.get('pages_scanned', 0)} victims_count={len(result.get('records', []))}"
+        )
 
-        group_summaries.append({
-            "group_id": str(group["group_id"]),
-            "name": str(group.get("name") or group["group_id"]),
-            "watchguard_profile_url": str(group.get("profile_url") or ""),
-            "status": _group_status(group_results),
-            "checked_at": run_at,
-            "sources_total": len(group_results),
-            "sources_ok": sum(item["status"] == "ok" for item in group_results),
-        })
+    with ThreadPoolExecutor(max_workers=worker_count, thread_name_prefix="victim-crawl") as executor:
+        while pending or in_flight:
+            now = time.monotonic()
+            budget_remaining = deadline - now
+            if budget_remaining <= 0 and pending:
+                budget_skipped.extend(pending)
+                pending.clear()
+            while pending and len(in_flight) < worker_count and budget_remaining > 0:
+                if time.monotonic() >= deadline:
+                    budget_remaining = 0
+                    break
+                ready_index = None
+                wait_for_host = None
+                for index, item in enumerate(pending):
+                    available_at = last_host_start.get(item["host"], float("-inf")) + max(0.0, request_delay_seconds)
+                    delay_left = available_at - now
+                    if delay_left <= 0:
+                        ready_index = index
+                        break
+                    wait_for_host = delay_left if wait_for_host is None else min(wait_for_host, delay_left)
+                if ready_index is None:
+                    break
+                entry = pending.pop(ready_index)
+                started_at = time.monotonic()
+                last_host_start[entry["host"]] = started_at
+                group_ids = ",".join(str(item["group"]["group_id"]) for item in entry["associations"])
+                source_ids = ",".join(item["source_id"] for item in entry["associations"])
+                _emit(
+                    f"source_start progress={completed_unique + len(in_flight) + 1}/{unique_url_count} "
+                    f"group_ids={group_ids} source_ids={source_ids} host={entry['host'] or 'unknown'}"
+                )
+                future = executor.submit(
+                    crawl_site,
+                    entry["url"],
+                    fetcher=fetcher,
+                    deadline_seconds=fetch_deadline_seconds,
+                )
+                in_flight[future] = (entry, started_at)
+                now = time.monotonic()
+                budget_remaining = deadline - now
+
+            if not pending and not in_flight:
+                break
+
+            timeout_candidates = []
+            budget_remaining = deadline - time.monotonic()
+            if pending and budget_remaining > 0:
+                timeout_candidates.append(budget_remaining)
+                for item in pending:
+                    available_at = last_host_start.get(item["host"], float("-inf")) + max(0.0, request_delay_seconds)
+                    if available_at > time.monotonic():
+                        timeout_candidates.append(available_at - time.monotonic())
+            wait_timeout = min(timeout_candidates) if timeout_candidates else None
+            if in_flight:
+                done, _not_done = wait(tuple(in_flight), timeout=wait_timeout, return_when=FIRST_COMPLETED)
+                for future in done:
+                    entry, started_at = in_flight.pop(future)
+                    try:
+                        result = future.result()
+                    except Exception as exc:
+                        result = {
+                            "status": "offline", "error": "worker_error",
+                            "error_type": type(exc).__name__, "http_status": None,
+                            "pages_scanned": 0, "records": [], "parser": None,
+                            "source_host": entry["host"],
+                        }
+                    store_completed(entry, result, started_at)
+            elif pending:
+                delay = wait_timeout if wait_timeout is not None else 0
+                if delay > 0:
+                    sleep(delay)
+
+    budget_exhausted = bool(budget_skipped)
+    for entry in budget_skipped:
+        for association in entry["associations"]:
+            group = association["group"]
+            source = association["source"]
+            source_id = association["source_id"]
+            prior = source_records.get(source_id, {})
+            source_records[source_id] = {
+                **prior,
+                "source_id": source_id,
+                "group_id": str(group["group_id"]),
+                "group_name": str(group.get("name") or group["group_id"]),
+                "source_host": prior.get("source_host") or entry["host"],
+                "status": "skipped_budget",
+                "status_updated_at": utc_now(),
+                "pages_scanned": 0,
+                "victims_found": 0,
+                "error": None,
+                "error_type": None,
+                "http_status": None,
+                "watchguard_profile_url": str(group.get("profile_url") or ""),
+            }
+            for sighting in sightings:
+                if sighting.get("source_id") == source_id:
+                    sighting["listing_state"] = "unknown"
+    if budget_exhausted:
+        _emit(
+            f"crawl_budget_exhausted completed_unique={completed_unique} "
+            f"unique_urls={unique_url_count} skipped_unique={len(budget_skipped)} "
+            f"budget_seconds={max(0.0, float(budget_seconds)):g}"
+        )
 
     for source_id, source_record in list(source_records.items()):
         if source_id in current_source_ids:
             continue
         source_record["status"] = "not_in_catalog"
+        source_record["status_updated_at"] = utc_now()
         source_records[source_id] = source_record
         for sighting in sightings:
             if sighting.get("source_id") == source_id:
                 sighting["listing_state"] = "unknown"
 
+    group_summaries: list[dict] = []
+    for group_id, group in group_by_id.items():
+        result_records = [source_records[item] for item in group_source_ids[group_id] if item in source_records]
+        eligibility = "active" if group_id in active_group_ids else "non_active"
+        group_summaries.append({
+            "group_id": group_id,
+            "name": str(group.get("name") or group_id),
+            "watchguard_profile_url": str(group.get("profile_url") or ""),
+            "eligibility": eligibility,
+            "status": _group_status(result_records, str(group.get("status") or "unknown")),
+            "source_issue": group.get("leak_sites_status") or (
+                "catalog_missing_extortion_scope"
+                if group.get("leak_sites") and group.get("leak_sites_scope") != "extortion_links"
+                else None
+            ),
+            "checked_at": run_at,
+            "sources_total": len(result_records),
+            "sources_ok": sum(item.get("status") == "ok" for item in result_records),
+            "sources_skipped": sum(str(item.get("status", "")).startswith("skipped_") for item in result_records),
+        })
+
+    elapsed = time.monotonic() - crawl_started
+    final_counts: dict[str, int] = {}
+    for source_id in current_source_ids:
+        status = source_records.get(source_id, {}).get("status", "unknown")
+        final_counts[status] = final_counts.get(status, 0) + 1
+    counts_text = ",".join(f"{key}={value}" for key, value in sorted(final_counts.items())) or "none"
+    _emit(
+        f"crawl_finished elapsed_seconds={elapsed:.2f} completed_unique={completed_unique}/{unique_url_count} "
+        f"budget_exhausted={str(budget_exhausted).lower()} source_statuses={counts_text} "
+        f"sightings={len(sightings)}"
+    )
+
     return {
         "schema_version": 1,
-        "updated_at": run_at,
+        "updated_at": utc_now(),
+        "crawl_started_at": run_at,
+        "crawl_elapsed_seconds": round(elapsed, 2),
+        "crawl_budget_seconds": max(0, int(budget_seconds)),
+        "crawl_partial": budget_exhausted,
         "source_catalog_updated_at": catalog.get("updated_at"),
         "groups": sorted(group_summaries, key=lambda item: item["name"].casefold()),
         "sources": sorted(source_records.values(), key=lambda item: (item["group_name"].casefold(), item["source_host"])),
@@ -603,9 +913,14 @@ def crawl_catalog(
         ),
     }
 
-
 def _catalog_needs_tor(catalog: dict) -> bool:
     for group in catalog.get("groups", []):
+        if (
+            not isinstance(group, dict)
+            or str(group.get("status") or "unknown").casefold() != "active"
+            or group.get("leak_sites_scope") != "extortion_links"
+        ):
+            continue
         for source in group.get("leak_sites", []) if isinstance(group, dict) else []:
             if isinstance(source, dict) and ".onion" in str(source.get("url") or "").casefold():
                 return True
@@ -638,6 +953,12 @@ def main() -> int:
     for source in result["sources"]:
         status_counts[source["status"]] = status_counts.get(source["status"], 0) + 1
     summary = ", ".join(f"{key}={value}" for key, value in sorted(status_counts.items())) or "no sources"
+    if result.get("crawl_partial"):
+        print(
+            "::warning::The 90-minute crawl budget was reached; completed sightings were saved "
+            "and remaining sources were marked skipped_budget.",
+            flush=True,
+        )
     print(
         f"Saved {len(result['sightings'])} historical sightings from "
         f"{len(result['sources'])} sources ({summary}) to {args.output}"

@@ -184,12 +184,51 @@ def _site_record(url: str) -> dict | None:
     return {"kind": kind, "url": normalized}
 
 
+def _extortion_links_content(root: Element) -> tuple[bool, list[Element], str]:
+    """Return anchors and visible text under the Extortion Links heading only."""
+    found = False
+    done = False
+    heading_level = 0
+    anchors: list[Element] = []
+    text_parts: list[str] = []
+
+    def visit(node: Element) -> None:
+        nonlocal found, done, heading_level
+        for child in node.children:
+            if done:
+                return
+            if isinstance(child, str):
+                if found:
+                    text_parts.append(child)
+                continue
+
+            is_heading = child.tag in {"h1", "h2", "h3", "h4", "h5", "h6"}
+            if not found:
+                if is_heading and clean_text(child.text()).casefold() == "extortion links":
+                    found = True
+                    heading_level = int(child.tag[1])
+                else:
+                    visit(child)
+                continue
+
+            if is_heading and int(child.tag[1]) <= heading_level:
+                done = True
+                return
+            if child.tag == "a":
+                anchors.append(child)
+            visit(child)
+
+    visit(root)
+    return found, anchors, clean_text(" ".join(text_parts))
+
+
 def extract_leak_sites(markup: str, profile_url: str) -> list[dict]:
-    """Extract direct web/Tor endpoints while excluding messaging services."""
+    """Extract direct endpoints from the profile's Extortion Links section."""
     root = parse_html(markup)
+    _found, anchors, visible_text = _extortion_links_content(root)
     found: dict[str, dict] = {}
 
-    for anchor in root.iter("a"):
+    for anchor in anchors:
         href = anchor.attrs.get("href")
         if not href:
             continue
@@ -197,7 +236,6 @@ def extract_leak_sites(markup: str, profile_url: str) -> list[dict]:
         if item:
             found[item["url"].casefold()] = item
 
-    visible_text = root.text()
     for match in ONION_PATTERN.finditer(visible_text):
         value = match.group(1).rstrip(".,;:)")
         item = _site_record(value)
@@ -263,12 +301,30 @@ def collect_groups(
         prior = previous_groups.get(group["group_id"], {})
         try:
             result = fetcher(group["profile_url"])
+            section_found, _anchors, _visible_text = _extortion_links_content(parse_html(result.body))
             group["leak_sites"] = extract_leak_sites(result.body, result.url)
             group["profile_status"] = "ok"
+            group["leak_sites_scope"] = "extortion_links"
+            group["leak_sites_status"] = "ok" if section_found else "extortion_section_missing"
             group["profile_checked_at"] = utc_now()
+            if group.get("status") == "active" and not section_found:
+                host = urlparse(group["profile_url"]).hostname or "unknown"
+                print(
+                    f"profile_missing_extortion_section group_id={group['group_id']} "
+                    f"host={host}",
+                    flush=True,
+                )
         except FetchError as exc:
-            group["leak_sites"] = prior.get("leak_sites", [])
+            # Only reuse data known to have been scoped to this section. Older
+            # catalogs may contain unrelated page links from the previous parser.
+            group["leak_sites"] = (
+                prior.get("leak_sites", [])
+                if prior.get("leak_sites_scope") == "extortion_links"
+                else []
+            )
             group["profile_status"] = "offline"
+            group["leak_sites_scope"] = "extortion_links"
+            group["leak_sites_status"] = "profile_offline"
             group["profile_error"] = exc.code
             group["profile_checked_at"] = utc_now()
         profiles.append(group)

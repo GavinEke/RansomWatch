@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import sys
+import threading
+import time
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -43,6 +45,17 @@ class WatchGuardParserTests(unittest.TestCase):
         self.assertIn("http://aaaaaaaaaaaaaaaa.onion/", urls)
         self.assertFalse(any("t.me" in value for value in urls))
         self.assertFalse(any("mailto:" in value for value in urls))
+        self.assertFalse(any("widencollective" in value for value in urls))
+        self.assertFalse(any("unrelated.example.invalid" in value for value in urls))
+
+    def test_profile_without_extortion_section_returns_no_sources(self) -> None:
+        self.assertEqual(
+            refresh_groups.extract_leak_sites(
+                '<a href="https://not-a-leak.invalid/">Contact</a>',
+                "https://www.watchguard.com/profile",
+            ),
+            [],
+        )
 
     def test_catalog_walks_all_tracker_pages_and_profiles(self) -> None:
         index_0 = fixture("watchguard-tracker-page-0.html")
@@ -50,7 +63,7 @@ class WatchGuardParserTests(unittest.TestCase):
         profile = fixture("watchguard-profile.html")
         calls: list[str] = []
 
-        def fake_fetch(url: str) -> SimpleNamespace:
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
             calls.append(url)
             if "page=1" in url:
                 body = index_1
@@ -66,10 +79,22 @@ class WatchGuardParserTests(unittest.TestCase):
         )
         self.assertEqual(result["pages_scanned"], 2)
         self.assertEqual({group["group_id"] for group in result["groups"]}, {"endzone", "old-group", "blue-team"})
+        self.assertEqual(next(group for group in result["groups"] if group["group_id"] == "endzone")["leak_sites_scope"], "extortion_links")
         self.assertGreaterEqual(len(calls), 5)
 
 
 class VictimParserTests(unittest.TestCase):
+    def test_tor_is_required_only_for_active_onion_sources(self) -> None:
+        self.assertFalse(scrape_victims._catalog_needs_tor({"groups": [
+            {"status": "unknown", "leak_sites": [{"url": "http://aaaaaaaaaaaaaaaa.onion/"}]},
+        ]}))
+        self.assertFalse(scrape_victims._catalog_needs_tor({"groups": [
+            {"status": "active", "leak_sites": [{"url": "http://aaaaaaaaaaaaaaaa.onion/"}]},
+        ]}))
+        self.assertTrue(scrape_victims._catalog_needs_tor({"groups": [
+            {"status": "active", "leak_sites_scope": "extortion_links", "leak_sites": [{"url": "http://aaaaaaaaaaaaaaaa.onion/"}]},
+        ]}))
+
     def test_table_parser_extracts_metadata_and_pagination(self) -> None:
         parsed = scrape_victims.parse_listing(
             fixture("leak-table-page-1.html"),
@@ -92,22 +117,39 @@ class VictimParserTests(unittest.TestCase):
         self.assertEqual(len(parsed["records"]), 2)
         self.assertEqual(parsed["records"][0]["sector"], "Manufacturing")
 
-    def test_crawl_follows_pages_and_deduplicates_records(self) -> None:
+    def test_crawl_reads_one_page_only(self) -> None:
         page_1 = fixture("leak-table-page-1.html")
-        page_2 = fixture("leak-table-page-2.html")
+        calls: list[str] = []
 
-        def fake_fetch(url: str) -> SimpleNamespace:
-            body = page_2 if "page=2" in url else page_1
-            return SimpleNamespace(url=url, body=body)
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            calls.append(url)
+            return SimpleNamespace(url=url, body=page_1, status_code=200)
 
         result = scrape_victims.crawl_site(
             "https://leak.example.invalid/",
             fetcher=fake_fetch,
-            sleep=lambda _delay: None,
         )
         self.assertEqual(result["status"], "ok")
-        self.assertEqual(result["pages_scanned"], 2)
-        self.assertEqual({row["organization"] for row in result["records"]}, {"Alpha Research", "Northstar Health"})
+        self.assertEqual(result["pages_scanned"], 1)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual({row["organization"] for row in result["records"]}, {"Alpha Research"})
+
+    def test_fetch_deadline_is_passed_to_fetcher_and_reported(self) -> None:
+        observed: dict[str, float] = {}
+
+        def timed_out_fetch(url: str, **kwargs) -> SimpleNamespace:
+            observed.update(kwargs)
+            raise FetchError("deadline_exceeded", cause_type="ReadTimeout")
+
+        result = scrape_victims.crawl_site(
+            "https://slow.example.invalid/",
+            fetcher=timed_out_fetch,
+            deadline_seconds=25,
+        )
+        self.assertEqual(observed["total_timeout"], 25)
+        self.assertEqual(result["status"], "offline")
+        self.assertEqual(result["error"], "deadline_exceeded")
+        self.assertEqual(result["error_type"], "ReadTimeout")
 
     def test_sighting_history_updates_and_tracks_removed_or_unknown_records(self) -> None:
         group = {
@@ -146,7 +188,7 @@ class VictimParserTests(unittest.TestCase):
         self.assertEqual(alpha["first_seen_at"], "2026-09-25T00:00:00Z")
         self.assertEqual(alpha["last_seen_at"], "2026-09-26T00:00:00Z")
         self.assertEqual(alpha["listing_state"], "listed")
-        self.assertEqual(northstar["listing_state"], "not_seen")
+        self.assertEqual(northstar["listing_state"], "unknown")
 
         offline = dict(result, status="offline", records=[])
         third = scrape_victims.merge_source_result(second, group, source, offline, "2026-09-27T00:00:00Z")
@@ -176,6 +218,162 @@ class VictimParserTests(unittest.TestCase):
         self.assertFalse(parsed["recognized"])
         self.assertEqual(parsed["records"], [])
 
+    def test_catalog_crawls_active_groups_and_deduplicates_shared_urls(self) -> None:
+        calls: list[str] = []
+
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            calls.append(url)
+            return SimpleNamespace(url=url, body=fixture("leak-table-page-1.html"), status_code=200)
+
+        catalog = {"groups": [
+            {"group_id": "active-one", "name": "Active One", "status": "active", "leak_sites_scope": "extortion_links", "profile_url": "https://www.watchguard.com/a", "leak_sites": [{"url": "https://leak.example.invalid/"}]},
+            {"group_id": "active-two", "name": "Active Two", "status": "active", "leak_sites_scope": "extortion_links", "profile_url": "https://www.watchguard.com/b", "leak_sites": [{"url": "https://leak.example.invalid/"}]},
+            {"group_id": "unknown-one", "name": "Unknown One", "status": "unknown", "profile_url": "https://www.watchguard.com/c", "leak_sites": [{"url": "https://inactive.example.invalid/"}]},
+        ]}
+        result = scrape_victims.crawl_catalog(
+            catalog,
+            fetcher=fake_fetch,
+            budget_seconds=10,
+            request_delay_seconds=0,
+        )
+
+        self.assertEqual(calls, ["https://leak.example.invalid/"])
+        self.assertEqual(len(result["sightings"]), 2)
+        self.assertEqual({item["group_id"] for item in result["sightings"]}, {"active-one", "active-two"})
+        source_states = {item["group_id"]: item["status"] for item in result["sources"]}
+        self.assertEqual(source_states["active-one"], "ok")
+        self.assertEqual(source_states["active-two"], "ok")
+        self.assertEqual(source_states["unknown-one"], "skipped_inactive")
+
+    def test_unscoped_legacy_catalog_is_skipped_until_refreshed(self) -> None:
+        calls: list[str] = []
+
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            calls.append(url)
+            return SimpleNamespace(url=url, body=fixture("leak-table-page-1.html"), status_code=200)
+
+        result = scrape_victims.crawl_catalog(
+            {"groups": [{
+                "group_id": "legacy", "name": "Legacy", "status": "active",
+                "profile_url": "https://www.watchguard.com/legacy",
+                "leak_sites": [{"url": "https://unscoped.example.invalid/"}],
+            }]},
+            fetcher=fake_fetch,
+        )
+        self.assertEqual(calls, [])
+        self.assertEqual(result["sources"][0]["status"], "skipped_unscoped_catalog")
+        self.assertEqual(result["groups"][0]["source_issue"], "catalog_missing_extortion_scope")
+
+    def test_crawl_continues_after_source_errors_and_marks_first_page_absence_unknown(self) -> None:
+        previous = {
+            "sources": [],
+            "sightings": [{
+                "id": "historical", "group_id": "group-a", "source_id": scrape_victims.source_id_for("https://good.example.invalid/", "group-a"),
+                "organization": "Old Victim", "listing_state": "listed", "first_seen_at": "2026-09-01T00:00:00Z", "last_seen_at": "2026-09-01T00:00:00Z",
+            }],
+        }
+        calls: list[str] = []
+
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            calls.append(url)
+            if "bad.example" in url:
+                raise FetchError("http_503", http_status=503)
+            return SimpleNamespace(url=url, body=fixture("leak-table-page-1.html"), status_code=200)
+
+        catalog = {"groups": [{
+            "group_id": "group-a", "name": "Group A", "status": "active", "leak_sites_scope": "extortion_links", "profile_url": "https://www.watchguard.com/a",
+            "leak_sites": [{"url": "https://bad.example.invalid/"}, {"url": "https://good.example.invalid/"}],
+        }]}
+        result = scrape_victims.crawl_catalog(
+            catalog,
+            previous,
+            fetcher=fake_fetch,
+            budget_seconds=10,
+            request_delay_seconds=0,
+        )
+        self.assertEqual(len(calls), 2)
+        self.assertEqual({item["status"] for item in result["sources"]}, {"offline", "ok"})
+        old = next(item for item in result["sightings"] if item["id"] == "historical")
+        self.assertEqual(old["listing_state"], "unknown")
+
+    def test_budget_skips_queued_sources_and_preserves_sightings_as_unknown(self) -> None:
+        source_url = "https://budget.example.invalid/"
+        source_id = scrape_victims.source_id_for(source_url, "group-a")
+        previous = {"sources": [], "sightings": [{
+            "id": "historical", "group_id": "group-a", "source_id": source_id,
+            "organization": "Old Victim", "listing_state": "listed",
+        }]}
+        calls: list[str] = []
+
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            calls.append(url)
+            return SimpleNamespace(url=url, body=fixture("leak-table-page-1.html"), status_code=200)
+
+        result = scrape_victims.crawl_catalog(
+            {"groups": [{
+                "group_id": "group-a", "name": "Group A", "status": "active", "leak_sites_scope": "extortion_links", "profile_url": "https://www.watchguard.com/a",
+                "leak_sites": [{"url": source_url}],
+            }]},
+            previous,
+            fetcher=fake_fetch,
+            budget_seconds=0,
+        )
+        self.assertEqual(calls, [])
+        self.assertTrue(result["crawl_partial"])
+        self.assertEqual(result["sources"][0]["status"], "skipped_budget")
+        self.assertEqual(result["sightings"][0]["listing_state"], "unknown")
+
+    def test_budget_drains_in_flight_request_before_saving_partial_results(self) -> None:
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            time.sleep(0.04)
+            return SimpleNamespace(url=url, body=fixture("leak-table-page-1.html"), status_code=200)
+
+        catalog = {"groups": [{
+            "group_id": "group-a", "name": "Group A", "status": "active", "leak_sites_scope": "extortion_links", "profile_url": "https://www.watchguard.com/a",
+            "leak_sites": [
+                {"url": "https://first.example.invalid/"},
+                {"url": "https://second.example.invalid/"},
+            ],
+        }]}
+        result = scrape_victims.crawl_catalog(
+            catalog,
+            fetcher=fake_fetch,
+            budget_seconds=0.02,
+            request_delay_seconds=0,
+            max_concurrency=1,
+        )
+        self.assertTrue(result["crawl_partial"])
+        self.assertEqual({item["status"] for item in result["sources"]}, {"ok", "skipped_budget"})
+        self.assertTrue(any(item["listing_state"] == "listed" for item in result["sightings"]))
+
+    def test_concurrency_is_capped_at_three(self) -> None:
+        lock = threading.Lock()
+        active = 0
+        max_active = 0
+
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            nonlocal active, max_active
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            time.sleep(0.03)
+            with lock:
+                active -= 1
+            return SimpleNamespace(url=url, body=fixture("leak-table-page-1.html"), status_code=200)
+
+        catalog = {"groups": [{
+            "group_id": "group-a", "name": "Group A", "status": "active", "leak_sites_scope": "extortion_links", "profile_url": "https://www.watchguard.com/a",
+            "leak_sites": [{"url": f"https://host{index}.example.invalid/"} for index in range(7)],
+        }]}
+        scrape_victims.crawl_catalog(
+            catalog,
+            fetcher=fake_fetch,
+            budget_seconds=5,
+            request_delay_seconds=0,
+            max_concurrency=8,
+        )
+        self.assertLessEqual(max_active, 3)
+
 
 class StaticSiteTests(unittest.TestCase):
     def test_data_and_assets_use_project_relative_paths(self) -> None:
@@ -184,6 +382,10 @@ class StaticSiteTests(unittest.TestCase):
         self.assertIn('href="./styles.css"', html)
         self.assertIn('src="./app.js"', html)
         self.assertIn('const DATA_URL = "./data/victims.json";', javascript)
+        self.assertIn('"skipped_budget"', javascript)
+        self.assertIn('"skipped_inactive"', javascript)
+        self.assertIn('"skipped_unscoped_catalog"', javascript)
+        self.assertIn("dataset.crawl_partial", javascript)
 
 
 if __name__ == "__main__":
