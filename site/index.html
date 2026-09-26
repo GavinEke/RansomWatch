@@ -26,12 +26,12 @@
         <div class="eyebrow"><span class="live-dot"></span> PUBLIC THREAT INTELLIGENCE</div>
         <h1>Victim claims,<br><span>tracked over time.</span></h1>
         <p class="intro-copy">A record of organizations named on ransomware group leak sites, gathered from the public WatchGuard group catalog.</p>
-        <p class="claim-note"><strong>Unverified claims:</strong> entries reflect what a group says it has compromised. Inclusion is not independent confirmation.</p>
+        <p class="claim-note"><strong>Threat actor claims, not confirmation.</strong> Listings are claims published by threat actors. Seeing an organization here does not confirm that a data breach occurred or that data was stolen.</p>
       </section>
 
       <section class="metrics" aria-label="Dataset overview">
         <article class="metric-card">
-          <span class="metric-label">Historical sightings</span>
+          <span class="metric-label">Historical victim claims</span>
           <strong id="metric-total">—</strong>
           <span class="metric-foot">Across all tracked groups</span>
         </article>
@@ -123,12 +123,39 @@
                 <th scope="col">Sector</th>
                 <th scope="col">Last observed</th>
                 <th scope="col">Listing state</th>
+                <th scope="col">Claim details</th>
               </tr>
             </thead>
             <tbody id="victim-rows"></tbody>
           </table>
         </div>
-        <p class="data-footnote">“Reported” is the date shown by the source, when provided. “Last observed” is when this project last saw the entry. The crawler checks only the first listing page for active groups; an entry missing from that page remains unknown. Historical sightings are retained.</p>
+        <p class="data-footnote">Reported dates, countries, and sectors are shown as they appear on the listing when provided. “Last observed” is when this project last saw the entry. The crawler checks only the first listing page for active groups; an entry missing from that page remains unknown. Historical sightings are retained. Optional details are claims shown by the threat actor, not independently verified.</p>
+      </section>
+
+      <section id="review-section" class="review-section" aria-labelledby="review-title" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">RETAINED FOR INSPECTION</p>
+            <h2 id="review-title">Headlines and ambiguous listings <span class="review-count" id="review-count"></span></h2>
+          </div>
+        </div>
+        <p id="review-summary" class="review-summary"></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Post title</th>
+                <th scope="col">Possible organization</th>
+                <th scope="col">Group</th>
+                <th scope="col">Classification</th>
+                <th scope="col">Last observed</th>
+                <th scope="col">Attribution</th>
+                <th scope="col">Claim details</th>
+              </tr>
+            </thead>
+            <tbody id="review-rows"></tbody>
+          </table>
+        </div>
       </section>
     </main>
 

@@ -32,10 +32,47 @@ NAME_HEADERS = {"name", "company name", "victim name", "organization name", "org
 DATE_HEADERS = ("date", "posted", "published", "added", "reported", "listed", "exposure")
 COUNTRY_HEADERS = ("country", "location", "region")
 SECTOR_HEADERS = ("sector", "industry", "business")
-CARD_CLASS_MARKERS = {"victim", "victim-card", "victim-item", "post", "entry", "attack", "listing", "card"}
+CARD_CLASS_MARKERS = {"victim", "victim-card", "victim-item", "post", "post-card", "entry", "attack", "listing", "card"}
 GENERIC_TITLES = {
     "home", "about", "contact", "news", "blog", "victims", "victim list",
-    "recent victims", "all victims", "load more", "read more",
+    "recent victims", "all victims", "load more", "read more", "welcome",
+    "important announcement",
+}
+STATUS_TAGS = {
+    "announcement", "all data published", "all stolen data", "data leak", "data leaked",
+    "leaked", "new", "published", "publication", "released", "sale", "sold", "victim",
+}
+TITLE_PREFIXES = ("leak:", "victim:", "new victim:", "company:", "organization:")
+HEADLINE_PREFIXES = (
+    "view all", "load more", "read more", "what time does", "what time is",
+    "response to ", "publication hold", "press release", "statement:", "article:",
+)
+DETAIL_LABELS = {
+    "description": {"description", "summary", "excerpt", "post description"},
+    "claimed_data_size": {"data size", "claimed data size", "size of data", "data volume"},
+    "file_count": {"file count", "number of files", "files", "documents", "record count"},
+    "deadline": {"deadline", "publication deadline", "due date", "countdown"},
+    "organization_website": {"website", "company website", "organization website", "domain"},
+}
+DETAIL_CLASS_LABELS = {
+    "description": {"description", "summary", "excerpt", "post-description", "post-summary"},
+    "claimed_data_size": {"data-size", "claimed-data-size", "data-volume"},
+    "file_count": {"file-count", "files-count", "document-count", "record-count"},
+    "deadline": {"deadline", "publication-deadline", "due-date", "countdown"},
+    "organization_website": {"website", "company-website", "organization-website", "domain"},
+}
+FLAG_COUNTRIES = {
+    "AE": "United Arab Emirates", "AR": "Argentina", "AT": "Austria", "AU": "Australia",
+    "BE": "Belgium", "BR": "Brazil", "CA": "Canada", "CH": "Switzerland", "CL": "Chile",
+    "CN": "China", "CO": "Colombia", "CR": "Costa Rica", "CZ": "Czechia", "DE": "Germany",
+    "DK": "Denmark", "ES": "Spain", "FI": "Finland", "FR": "France", "GB": "United Kingdom",
+    "GR": "Greece", "HK": "Hong Kong", "HU": "Hungary", "ID": "Indonesia", "IE": "Ireland",
+    "IL": "Israel", "IN": "India", "IT": "Italy", "JP": "Japan", "KR": "South Korea",
+    "LU": "Luxembourg", "MX": "Mexico", "MY": "Malaysia", "NL": "Netherlands", "NO": "Norway",
+    "NZ": "New Zealand", "PH": "Philippines", "PL": "Poland", "PT": "Portugal", "RO": "Romania",
+    "RU": "Russia", "SA": "Saudi Arabia", "SE": "Sweden", "SG": "Singapore", "TH": "Thailand",
+    "TR": "Turkey", "TW": "Taiwan", "UA": "Ukraine", "US": "United States", "VN": "Vietnam",
+    "ZA": "South Africa",
 }
 ListingParser = Callable[[str, str], dict]
 PARSER_REGISTRY: dict[str, ListingParser] = {}
@@ -50,12 +87,138 @@ def register_parser(host_suffix: str, parser: ListingParser) -> None:
 
 
 def clean_text(value: str) -> str:
-    return re.sub(r"\s+", " ", value or "").strip()
+    text = value or ""
+    for corrupted, repaired in {
+        "â\x86\x92": "→", "â†’": "→", "â\x86\x90": "←",
+        "â€™": "’", "â€œ": "“", "â€\x9d": "”", "â€“": "–", "â€”": "—", "Â ": " ",
+    }.items():
+        text = text.replace(corrupted, repaired)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def normalize_name(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
     return re.sub(r"[^a-z0-9]+", " ", normalized.casefold()).strip()
+
+
+def country_from_flag(value: str) -> tuple[str | None, str]:
+    """Remove a leading regional-indicator flag and return its country name."""
+    text = clean_text(value)
+    if len(text) < 2 or not (0x1F1E6 <= ord(text[0]) <= 0x1F1FF and 0x1F1E6 <= ord(text[1]) <= 0x1F1FF):
+        return None, text
+    code = "".join(chr(ord(character) - 0x1F1E6 + ord("A")) for character in text[:2])
+    # The compact fallback preserves a valid two-letter flag code even for a
+    # country not in the display-name table, rather than dropping the signal.
+    country = FLAG_COUNTRIES.get(code, code)
+    return country, clean_text(text[2:])
+
+
+def _clean_listing_title(value: str) -> tuple[str, str | None]:
+    title = clean_text(value)
+    inferred_country, title = country_from_flag(title)
+    previous = None
+    while previous != title:
+        previous = title
+        title = re.sub(r"\s*\[(?P<tag>[^\]]{1,80})\]\s*$", lambda match: "" if normalize_name(match.group("tag")) in STATUS_TAGS else match.group(0), title)
+        title = clean_text(title)
+    lowered = title.casefold()
+    for prefix in TITLE_PREFIXES:
+        if lowered.startswith(prefix):
+            title = clean_text(title[len(prefix):])
+            break
+    return title[:240], inferred_country
+
+
+def _classify_listing_title(title: str, organization: str | None = None) -> tuple[str, str | None]:
+    """Conservatively separate clear organization names from post headlines."""
+    raw = clean_text(title)
+    cleaned, _country = _clean_listing_title(raw)
+    candidate = clean_text(organization or cleaned) or None
+    normalized = normalize_name(cleaned)
+    lowered = cleaned.casefold()
+    if not cleaned:
+        return "review", None
+    if normalized in GENERIC_TITLES or any(lowered.startswith(prefix) for prefix in HEADLINE_PREFIXES):
+        return "headline", None
+    if re.match(r"^(?:important\s+)?announcement\b", lowered):
+        match = re.match(r"^announcement\s+(?:for|about)\s+(?:the\s+)?(.+?)(?:\s+and\s+its\s+clients)?$", cleaned, re.I)
+        return ("review", clean_text(match.group(1)) if match else None)
+    if re.search(r"\b(?:article|interview|press release|announcement)\b", lowered):
+        return "headline", None
+    if re.match(r"^(?:welcome\s+to|welcome\s+back)\b", lowered):
+        return "headline", None
+    if re.match(r"^(?:response to|publication hold|press release|statement|article)\b", lowered):
+        return "headline", None
+    if "?" in cleaned or len(cleaned) > 120:
+        return "review", candidate
+    # Sentence-like claims are retained for inspection instead of being
+    # counted as organizations; dotted legal suffixes without a predicate
+    # (Inc., GmbH, S.r.l.) remain eligible victim names.
+    sentence_cue = re.search(
+        r"\b(?:has been|have been|was|were|will be|are being|we have|our company|announced that|reported that)\b",
+        lowered,
+    )
+    if sentence_cue:
+        return "review", candidate
+    return "victim", candidate
+
+
+def _bounded_text(value: object, limit: int = 500) -> str | None:
+    text = clean_text(str(value or ""))
+    if not text:
+        return None
+    return text[:limit]
+
+
+def normalize_listing_record(record: dict) -> dict:
+    """Normalize a parsed card/table row into the additive public schema."""
+    result = dict(record)
+    post_title = _bounded_text(result.get("post_title") or result.get("organization") or result.get("name"), 500)
+    raw_organization = _bounded_text(result.get("organization") or result.get("name"), 240)
+    cleaned_organization, flag_country = _clean_listing_title(raw_organization or post_title or "")
+    post_type, candidate = _classify_listing_title(post_title or cleaned_organization, cleaned_organization or None)
+    # A source may explicitly supply a normalized organization alongside a
+    # longer post title; retain that candidate unless the title is clearly a
+    # non-victim control/headline.
+    if post_type == "victim" and raw_organization:
+        candidate = cleaned_organization or raw_organization
+    if post_type == "headline":
+        candidate = None
+    explicit_country = _bounded_text(result.get("country"), 120)
+    country_flag, explicit_country_text = country_from_flag(explicit_country or "")
+    country = explicit_country_text or country_flag or flag_country
+    country_basis = result.get("country_basis")
+    if country:
+        if country_basis not in {"explicit", "flag_inferred"}:
+            country_basis = "explicit" if explicit_country_text else "flag_inferred"
+    else:
+        country_basis = None
+
+    details = dict(result.get("claim_details") or {})
+    for key in DETAIL_LABELS:
+        value = _bounded_text(details.get(key), 500 if key == "description" else 240)
+        if value:
+            details[key] = value
+        else:
+            details.pop(key, None)
+
+    result.update({
+        "post_title": post_title,
+        "post_type": post_type,
+        "organization": candidate,
+        "reported_date": _bounded_text(result.get("reported_date"), 120),
+        "country": country,
+        "sector": _bounded_text(result.get("sector"), 160),
+    })
+    if country:
+        result["country_basis"] = country_basis
+    else:
+        result.pop("country_basis", None)
+    if details:
+        result["claim_details"] = details
+    else:
+        result.pop("claim_details", None)
+    return result
 
 
 def _slug_from_url(value: str) -> str | None:
@@ -99,6 +262,85 @@ def _header_index(headers: list[str], exact: set[str] | tuple[str, ...], *, allo
     return None
 
 
+def _detail_indexes(headers: list[str]) -> dict[str, int | None]:
+    aliases = {
+        "description": ("description", "summary", "excerpt"),
+        "claimed_data_size": ("claimed data size", "data size", "size of data", "data volume"),
+        "file_count": ("file count", "number of files", "files", "documents", "record count"),
+        "deadline": ("deadline", "publication deadline", "due date", "countdown"),
+        "organization_website": ("organization website", "company website", "website", "domain"),
+    }
+    return {key: _header_index(headers, terms) for key, terms in aliases.items()}
+
+
+def _text_after_label(value: str, labels: set[str]) -> str | None:
+    for label in sorted(labels, key=len, reverse=True):
+        match = re.match(r"^\s*" + re.escape(label) + r"\s*[:\-–—]\s*(.+?)\s*$", value, re.I)
+        if match:
+            return clean_text(match.group(1)) or None
+    return None
+
+
+def _card_claim_details(item: Element) -> dict[str, str]:
+    details: dict[str, str] = {}
+    normalized_labels = {
+        key: {normalize_name(label).replace(" ", "-") for label in labels} | labels
+        for key, labels in DETAIL_CLASS_LABELS.items()
+    }
+    labels_for_text = DETAIL_LABELS
+    for child in item.iter():
+        classes = _class_tokens(child)
+        if child is item:
+            continue
+        for field, aliases in normalized_labels.items():
+            if field in details or not classes.intersection(aliases):
+                continue
+            value = clean_text(child.text())
+            labeled = _text_after_label(value, labels_for_text[field])
+            details[field] = labeled or value
+
+    for child in item.iter():
+        if child.tag not in {"p", "li", "div", "span", "dd"}:
+            continue
+        value = clean_text(child.text())
+        for field, labels in labels_for_text.items():
+            if field not in details:
+                extracted = _text_after_label(value, labels)
+                if extracted:
+                    details[field] = extracted
+        data_label = normalize_name(str(child.attrs.get("data-label") or "")).replace(" ", "-")
+        for field, aliases in normalized_labels.items():
+            if field not in details and data_label in aliases:
+                details[field] = _text_after_label(value, labels_for_text[field]) or value
+
+    # Common definition-list layout: <dt>Label</dt><dd>Value</dd>.
+    for label_node in item.iter("dt"):
+        parent = label_node.parent
+        if not parent:
+            continue
+        try:
+            index = parent.children.index(label_node)
+        except ValueError:
+            continue
+        next_node = next(
+            (node for node in parent.children[index + 1:] if isinstance(node, Element) and node.tag == "dd"),
+            None,
+        )
+        if not next_node:
+            continue
+        label = normalize_name(label_node.text())
+        for field, labels in labels_for_text.items():
+            normalized_labels = {normalize_name(value) for value in labels}
+            if field not in details and label in normalized_labels:
+                details[field] = clean_text(next_node.text())
+
+    return {
+        field: _bounded_text(value, 500 if field == "description" else 240)
+        for field, value in details.items()
+        if _bounded_text(value, 500 if field == "description" else 240)
+    }
+
+
 def _record_id(row: Element, victim_cell: Element) -> str | None:
     for key in ("data-id", "data-victim-id", "id"):
         value = clean_text(str(row.attrs.get(key) or ""))
@@ -133,6 +375,7 @@ def _records_from_tables(root: Element) -> tuple[bool, list[dict], str | None]:
         date_index = _header_index(headers, DATE_HEADERS)
         country_index = _header_index(headers, COUNTRY_HEADERS)
         sector_index = _header_index(headers, SECTOR_HEADERS)
+        detail_indexes = _detail_indexes(headers)
         records: list[dict] = []
         for row in table.iter("tr"):
             if any(cell.tag == "th" for cell in _table_cells(row)):
@@ -141,16 +384,24 @@ def _records_from_tables(root: Element) -> tuple[bool, list[dict], str | None]:
             if victim_index >= len(cells):
                 continue
             organization = clean_text(cells[victim_index].text())
-            normalized = normalize_name(organization)
-            if not organization or normalized in GENERIC_TITLES or len(organization) > 240:
+            if not organization or len(organization) > 500:
                 continue
-            records.append({
+            claim_details = {
+                field: clean_text(cells[index].text())
+                for field, index in detail_indexes.items()
+                if index is not None and index < len(cells) and clean_text(cells[index].text())
+            }
+            record = {
                 "organization": organization,
+                "post_title": organization,
                 "record_id": _record_id(row, cells[victim_index]),
                 "reported_date": clean_text(cells[date_index].text()) if date_index is not None and date_index < len(cells) else None,
                 "country": clean_text(cells[country_index].text()) if country_index is not None and country_index < len(cells) else None,
                 "sector": clean_text(cells[sector_index].text()) if sector_index is not None and sector_index < len(cells) else None,
-            })
+            }
+            if claim_details:
+                record["claim_details"] = claim_details
+            records.append(normalize_listing_record(record))
         return True, records, "html-table"
     return False, [], None
 
@@ -188,9 +439,9 @@ def _records_from_cards(root: Element) -> tuple[bool, list[dict], str | None]:
             if classes.intersection({"victim", "victim-card", "victim-item"}):
                 recognized_empty = True
             continue
-        organization = clean_text(title.text())
-        normalized = normalize_name(organization)
-        if not organization or normalized in GENERIC_TITLES or len(organization) > 240:
+        post_title = clean_text(title.text())
+        normalized = normalize_name(post_title)
+        if not post_title or len(post_title) > 500:
             continue
         if normalized in seen_names:
             continue
@@ -221,13 +472,18 @@ def _records_from_cards(root: Element) -> tuple[bool, list[dict], str | None]:
                     identity = _slug_from_url(str(href))
                     if identity:
                         break
-        records.append({
-            "organization": organization,
+        record = {
+            "organization": post_title,
+            "post_title": post_title,
             "record_id": identity,
             "reported_date": date_value,
             "country": country,
             "sector": sector,
-        })
+        }
+        claim_details = _card_claim_details(item)
+        if claim_details:
+            record["claim_details"] = claim_details
+        records.append(normalize_listing_record(record))
     return bool(records) or recognized_empty, records, "html-cards" if records or recognized_empty else None
 
 
@@ -283,6 +539,7 @@ def parse_listing(markup: str, page_url: str) -> dict:
                 pagination.extend(extract_pagination_urls(root, page_url))
                 return {
                     **adapted,
+                    "records": [normalize_listing_record(item) for item in adapted.get("records", [])],
                     "pagination_urls": list(dict.fromkeys(pagination)),
                 }
     recognized, records, parser_name = _records_from_tables(root)
@@ -290,7 +547,7 @@ def parse_listing(markup: str, page_url: str) -> dict:
         recognized, records, parser_name = _records_from_cards(root)
     return {
         "recognized": recognized,
-        "records": records,
+        "records": [normalize_listing_record(item) for item in records],
         "parser": parser_name,
         "pagination_urls": extract_pagination_urls(root, page_url),
     }
@@ -309,27 +566,74 @@ def source_id_for(url: str, group_id: str = "") -> str:
 
 
 def sighting_id_for(group_id: str, source_id: str, record: dict) -> str:
+    record = normalize_listing_record(record)
     record_id = clean_text(str(record.get("record_id") or ""))
-    stable_identity = "record:" + record_id.casefold() if record_id else "name:" + normalize_name(
-        str(record.get("organization") or "")
+    fallback = record.get("organization") or record.get("post_title") or ""
+    stable_identity = "record:" + record_id.casefold() if record_id else (
+        record["post_type"] + ":" + normalize_name(str(fallback))
     )
     material = f"{group_id.casefold()}\0{source_id}\0{stable_identity}"
     return hashlib.sha256(material.encode("utf-8")).hexdigest()[:24]
 
 
+def migrate_sightings(sightings: list[dict]) -> list[dict]:
+    """Add normalized classification/details while preserving existing IDs and history."""
+    migrated: list[dict] = []
+    for item in sightings:
+        if not isinstance(item, dict):
+            continue
+        normalized = normalize_listing_record(item)
+        migrated.append({**item, **normalized})
+    return migrated
+
+
+def _matching_history(
+    existing_by_id: dict[str, dict], group_id: str, source_id: str, record: dict
+) -> dict | None:
+    record_id = clean_text(str(record.get("record_id") or ""))
+    normalized_org = normalize_name(str(record.get("organization") or ""))
+    normalized_title = normalize_name(str(record.get("post_title") or ""))
+    matches: list[dict] = []
+    for old in existing_by_id.values():
+        if old.get("group_id") != group_id or old.get("source_id") != source_id:
+            continue
+        old_record_id = clean_text(str(old.get("record_id") or ""))
+        if record_id and old_record_id and record_id.casefold() == old_record_id.casefold():
+            return old
+        if record_id and old_record_id:
+            continue
+        old_org = normalize_name(str(old.get("organization") or ""))
+        old_title = normalize_name(str(old.get("post_title") or ""))
+        if normalized_org and old_org == normalized_org:
+            matches.append(old)
+        elif not normalized_org and normalized_title and old_title == normalized_title:
+            matches.append(old)
+    return matches[0] if len(matches) == 1 else None
+
+
 def _dedupe_records(records: list[dict]) -> list[dict]:
     result: dict[str, dict] = {}
     for record in records:
-        key = normalize_name(str(record.get("organization") or ""))
+        record = normalize_listing_record(record)
+        name = normalize_name(str(record.get("organization") or ""))
+        title = normalize_name(str(record.get("post_title") or ""))
+        record_id = clean_text(str(record.get("record_id") or ""))
+        key = "record:" + record_id.casefold() if record_id else f"{record['post_type']}:{name or title}"
         if not key:
             continue
         existing = result.get(key)
         if existing is None:
             result[key] = record
             continue
-        for field in ("record_id", "reported_date", "country", "sector"):
+        for field in ("record_id", "reported_date", "country", "country_basis", "sector"):
             if not existing.get(field) and record.get(field):
                 existing[field] = record[field]
+        details = existing.setdefault("claim_details", {})
+        for field, value in record.get("claim_details", {}).items():
+            if not details.get(field) and value:
+                details[field] = value
+        if not details:
+            existing.pop("claim_details", None)
     return list(result.values())
 
 
@@ -445,28 +749,39 @@ def merge_source_result(
     source_id = str(result["source_id"])
     existing_by_id = {
         item["id"]: dict(item)
-        for item in existing_sightings
+        for item in migrate_sightings(existing_sightings)
         if isinstance(item, dict) and item.get("id")
     }
     current_ids: set[str] = set()
     profile_url = str(group.get("profile_url") or "")
 
     for record in result.get("records", []):
-        organization = clean_text(str(record.get("organization") or ""))
-        if not organization:
+        record = normalize_listing_record(record)
+        if not record.get("post_title"):
             continue
-        sighting_id = sighting_id_for(group_id, source_id, record)
+        old = existing_by_id.get(sighting_id_for(group_id, source_id, record))
+        if old is None:
+            old = _matching_history(existing_by_id, group_id, source_id, record)
+        sighting_id = str(old.get("id")) if old else sighting_id_for(group_id, source_id, record)
         current_ids.add(sighting_id)
-        old = existing_by_id.get(sighting_id, {})
+        old = old or existing_by_id.get(sighting_id, {})
+        details = dict(old.get("claim_details") or {})
+        for field, value in record.get("claim_details", {}).items():
+            if value:
+                details[field] = value
         sighting = {
             **old,
             "id": sighting_id,
             "group_id": group_id,
             "group_name": str(group.get("name") or group_id),
-            "organization": organization,
-            "reported_date": clean_text(str(record.get("reported_date") or "")) or old.get("reported_date"),
-            "country": clean_text(str(record.get("country") or "")) or old.get("country"),
-            "sector": clean_text(str(record.get("sector") or "")) or old.get("sector"),
+            "organization": record.get("organization"),
+            "post_title": record.get("post_title"),
+            "post_type": record.get("post_type", "review"),
+            "record_id": record.get("record_id") or old.get("record_id"),
+            "reported_date": record.get("reported_date") or old.get("reported_date"),
+            "country": record.get("country") or old.get("country"),
+            "country_basis": record.get("country_basis") or old.get("country_basis"),
+            "sector": record.get("sector") or old.get("sector"),
             "first_seen_at": old.get("first_seen_at") or observed_at,
             "last_seen_at": observed_at,
             "listing_state": "listed",
@@ -474,6 +789,8 @@ def merge_source_result(
             "source_host": result.get("source_host") or "",
             "watchguard_profile_url": profile_url,
         }
+        if details:
+            sighting["claim_details"] = details
         existing_by_id[sighting_id] = sighting
 
     for sighting_id, sighting in existing_by_id.items():
@@ -550,7 +867,7 @@ def crawl_catalog(
     run_at = utc_now()
     crawl_started = time.monotonic()
     deadline = crawl_started + max(0.0, float(budget_seconds))
-    sightings = [dict(item) for item in previous.get("sightings", []) if isinstance(item, dict)]
+    sightings = migrate_sightings(previous.get("sightings", []))
     source_records: dict[str, dict] = {
         str(item["source_id"]): dict(item)
         for item in previous.get("sources", [])
@@ -607,6 +924,7 @@ def crawl_catalog(
                     "status_updated_at": run_at,
                     "pages_scanned": 0,
                     "victims_found": 0,
+                    "posts_review": 0,
                     "error": None,
                     "watchguard_profile_url": str(group.get("profile_url") or ""),
                 }
@@ -628,6 +946,7 @@ def crawl_catalog(
                     "status_updated_at": run_at,
                     "pages_scanned": 0,
                     "victims_found": 0,
+                    "posts_review": 0,
                     "error": "missing_extortion_scope",
                     "watchguard_profile_url": str(group.get("profile_url") or ""),
                 }
@@ -665,6 +984,7 @@ def crawl_catalog(
                     "status_updated_at": completed_at,
                     "pages_scanned": 0,
                     "victims_found": 0,
+                    "posts_review": 0,
                     "parser": None,
                     "error": url_error,
                     "error_type": None,
@@ -724,7 +1044,8 @@ def crawl_catalog(
                 "checked_at": completed_at,
                 "status_updated_at": completed_at,
                 "pages_scanned": result.get("pages_scanned", 0),
-                "victims_found": len(result.get("records", [])),
+                "victims_found": sum(item.get("post_type") == "victim" for item in result.get("records", [])),
+                "posts_review": sum(item.get("post_type") != "victim" for item in result.get("records", [])),
                 "parser": result.get("parser"),
                 "error": result.get("error"),
                 "error_type": result.get("error_type"),
@@ -742,7 +1063,9 @@ def crawl_catalog(
             f"source_complete progress={completed_unique}/{unique_url_count} "
             f"group_ids={group_ids} source_ids={association_source_ids} host={entry['host'] or 'unknown'} "
             f"elapsed_seconds={elapsed:.2f} status={result['status']} {detail} "
-            f"pages={result.get('pages_scanned', 0)} victims_count={len(result.get('records', []))}"
+            f"pages={result.get('pages_scanned', 0)} records={len(result.get('records', []))} "
+            f"victims={sum(item.get('post_type') == 'victim' for item in result.get('records', []))} "
+            f"review={sum(item.get('post_type') != 'victim' for item in result.get('records', []))}"
         )
 
     with ThreadPoolExecutor(max_workers=worker_count, thread_name_prefix="victim-crawl") as executor:
@@ -834,6 +1157,7 @@ def crawl_catalog(
                 "status_updated_at": utc_now(),
                 "pages_scanned": 0,
                 "victims_found": 0,
+                "posts_review": 0,
                 "error": None,
                 "error_type": None,
                 "http_status": None,
@@ -893,7 +1217,7 @@ def crawl_catalog(
     )
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "updated_at": utc_now(),
         "crawl_started_at": run_at,
         "crawl_elapsed_seconds": round(elapsed, 2),

@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "updated_at": "2026-09-26T13:49:31Z",
   "crawl_started_at": "2026-09-26T13:38:47Z",
   "crawl_elapsed_seconds": 643.7,
@@ -41728,13 +41728,16 @@
       "listing_state": "listed",
       "source_id": "5a52baa220287592d484",
       "source_host": "yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/eclipse"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/eclipse",
+      "post_title": "part1.simplexengg.in",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "3e41f73e0be4d01e22df2470",
       "group_id": "threeam",
       "group_name": "ThreeAM",
-      "organization": "What time does the clock show?",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41743,7 +41746,10 @@
       "listing_state": "listed",
       "source_id": "5988ff9a6262ddcbc326",
       "source_host": "threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/threeam"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/threeam",
+      "post_title": "What time does the clock show?",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "50ca65693ea9ed6f7f5fa98f",
@@ -41758,13 +41764,16 @@
       "listing_state": "listed",
       "source_id": "fd4aaf2991e116442b8e",
       "source_host": "spiralstfe7rtbna7zlv6szdwmjvjszf2d64zkf6z5jykrwnw5jbgpyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/spirals"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/spirals",
+      "post_title": "ASYAD GROUP",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "0381da67b18134fe28177184",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Welcome",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41773,13 +41782,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Welcome",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "7e709101595684150cdc3008",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Response to PRODAFT journalists",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41788,13 +41800,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Response to PRODAFT journalists",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "8e4a1d76ee46b4f7bbb1e4db",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Publication hold announcement",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41803,13 +41818,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Publication hold announcement",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "f3b7dbb4c2eec107b9d986ac",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Passwordstate weak encryption article",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41818,13 +41836,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Passwordstate weak encryption article",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "2a7ee28db31af10a908a5ea4",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Leak: Richmond Plywood Corporation Limited",
+      "organization": "Richmond Plywood Corporation Limited",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41833,13 +41854,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Leak: Richmond Plywood Corporation Limited",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c1dd2668d072e4e7a6ce8721",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Leak: NAI Earle Furman",
+      "organization": "NAI Earle Furman",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41848,13 +41872,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Leak: NAI Earle Furman",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c68b952b0e0c965d15a5f093",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Leak: Mike Brandner Law",
+      "organization": "Mike Brandner Law",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41863,13 +41890,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Leak: Mike Brandner Law",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "06af96e2982ede4aedc36bf3",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Leak: JM Bozeman Enterprises",
+      "organization": "JM Bozeman Enterprises",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41878,13 +41908,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Leak: JM Bozeman Enterprises",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "76810bd9326b15617ad41e78",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Leak: Indigo Group",
+      "organization": "Indigo Group",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41893,13 +41926,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Leak: Indigo Group",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5791cf1906e03f577a05c35a",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Leak: Color Communications LLC",
+      "organization": "Color Communications LLC",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41908,13 +41944,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Leak: Color Communications LLC",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "6009d83b930f0f08149a76be",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Important Announcement",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41923,13 +41962,16 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Important Announcement",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "901132c344e1de1d25cf548f",
       "group_id": "secp0",
       "group_name": "SECP0",
-      "organization": "Announcement for the Terralogic and its clients",
+      "organization": "Terralogic",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -41938,7 +41980,10 @@
       "listing_state": "listed",
       "source_id": "1632d6a02dd0ee4d009b",
       "source_host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/secp0",
+      "post_title": "Announcement for the Terralogic and its clients",
+      "post_type": "review",
+      "country_basis": null
     },
     {
       "id": "c438f08ec68953bb3a5172bb",
@@ -41953,7 +41998,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Zara Investment Holding",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5fe05a31461ae056b54fd32a",
@@ -41968,7 +42016,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Villea Hotels in AttanaHotels",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "3369c7c7920baa5757d2228b",
@@ -41983,7 +42034,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Vela Film S.r.l.",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5891607d9e7aad4e2245ce01",
@@ -41998,7 +42052,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Vancompare Insurance",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c8264415f90fd880b427482f",
@@ -42013,7 +42070,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "United Limsun International Trading",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5eb5ffa2f5d8a1a381bd7d5a",
@@ -42028,7 +42088,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "United Finance Egypt",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "29e5beed96db8a4f8943c6a7",
@@ -42043,7 +42106,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Tyler Media",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "22ca8897d098cff7420c0a79",
@@ -42058,7 +42124,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Tscherne Consulting Steuerberatung GmbH",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "7460479b19c3cf4bfebf4ef3",
@@ -42073,7 +42142,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "TS Lines Philippines",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "9ac1d2eaa5c1bacf441d434f",
@@ -42088,7 +42160,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Tofutown",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "392e3bcf9801dc621b29b4c5",
@@ -42103,7 +42178,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "The commune of Castries",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "d1b6c87acfb14fe043d03132",
@@ -42118,7 +42196,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Thai Solar Energy Public",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "f900ba8df7667305ebcf3e8e",
@@ -42133,7 +42214,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "TFE Group",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "2fc9db86787f6f52374325c4",
@@ -42148,7 +42232,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Tang Seng Nitrogen & Pump Systems Pte. Ltd.",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c35444b38750a522ea50c712",
@@ -42163,7 +42250,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Sunlight Express Airways",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "a1105a0b754231e8021fb9aa",
@@ -42178,7 +42268,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Stücheli Architekten",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c38c0d8988c2ee29c02de09f",
@@ -42193,7 +42286,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "SPORTON International Inc.",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c2bb4cce03f9e75a31a5162a",
@@ -42208,7 +42304,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Software Arge",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "01c3c6a6e1558b61b73135cb",
@@ -42223,7 +42322,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "sodic.com",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "066a898bfa4a0872891b5cae",
@@ -42238,7 +42340,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "SAYEGH",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "499d303bceba61972dbed3bc",
@@ -42253,7 +42358,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Río Grande (Puerto Rico)",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "35cf3f9df4d13c1a42dbeacf",
@@ -42268,7 +42376,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Rural Municipality of Gimli",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "e598cae35c3051aea6092d96",
@@ -42283,7 +42394,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Roofinox",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "31fad254d6d3f1a7d4a93043",
@@ -42298,7 +42412,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Robinsons",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "0dbccef8d3fe3338734b541a",
@@ -42313,7 +42430,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Qualiflex Solutions | qualiflex.solutions",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "65f74dfd23e68aca462890be",
@@ -42328,7 +42448,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Qualiflex Datacenter | HWZ-Studiengnge (fh-hwz.ch), myenb.ch, etc",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "6076275ec2130177a2787b43",
@@ -42343,7 +42466,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Q2 Artificial Lift Services",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "e44218e166d967cb920122b4",
@@ -42358,7 +42484,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "PROM (Peakside Ros Outlet Management)",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "a9129440cd3586b2c94d5757",
@@ -42373,7 +42502,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Preferred Properties",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5342452f92ce891e6819b5b1",
@@ -42388,7 +42520,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Plaza Lama",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "87e4602de0d5916f23767a4f",
@@ -42403,7 +42538,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Peroni Sosa Tellechea Burt & Narvaja",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "9c053a98f93e39a97cd737b8",
@@ -42418,7 +42556,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "orientalweavers.com",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "729effba40a0c6178e5d2935",
@@ -42433,7 +42574,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Notaría 89",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "d77e91280b7c86b380d9a120",
@@ -42448,7 +42592,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "NKAR Travels & Tours",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "6f6198eb8aa4ecaa94947dcd",
@@ -42463,7 +42610,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "myipo.gov.my",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "039ebffb06033174849f4c19",
@@ -42478,7 +42628,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Mosaic Partners",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "0fc46cf608c2e85b6ae9deca",
@@ -42493,7 +42646,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "meditron.com.ve",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "51ad39ab2b834eb3d44eda33",
@@ -42508,7 +42664,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Marino Food Products Pvt",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "32b738a5d5ce673a2044ae07",
@@ -42523,7 +42682,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Lucky Innovative Manufacturing Corporation",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "da6afe57b8d2be0efbc97f19",
@@ -42538,7 +42700,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Kabushiki Gaisha Hodozuka Setsubi",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "a503f7facca03fc4f46306b7",
@@ -42553,7 +42718,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "JOH Investments Limited",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "4c09ca7d5fa8fbd47dd6c7c5",
@@ -42568,7 +42736,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "J.T. Pack of Foods",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "30849d010d555a5cac0d6138",
@@ -42583,7 +42754,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Internal Medicine and Pediatrics of Cullman",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "75f759415584b7e25ea90146",
@@ -42598,7 +42772,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Inteceng.com.my (+ Tsksynergy.com.my + Amemanufacturing.com.my + Woodnova.com.my)",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "b8534e79e3fc2dc3cdad5bd0",
@@ -42613,7 +42790,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "In.Sa.Cor",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "59a7b762db59347c74c350ff",
@@ -42628,7 +42808,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "iGLS",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "609750ed634deebabb775b9c",
@@ -42643,7 +42826,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "HOPPECKE Singapore",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "b0a608b09e72eb63f1d62d3f",
@@ -42658,7 +42844,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Hansoll Textile in Vietnam",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "e8d3283e613d451f35259214",
@@ -42673,7 +42862,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Hans & Jos. Kronenberg GmbH",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "7e82d5beda065dbd0a5fcddf",
@@ -42688,7 +42880,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Grid Fine Finishes",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "e0b07dd5014b55f079d384fc",
@@ -42703,7 +42898,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Gorey Community School",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "84ea8e94c0bab6c4ed38d51a",
@@ -42718,7 +42916,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "G Theodor Freese",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "049f4eedd243e8261416f363",
@@ -42733,7 +42934,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Franziskusschule Wilhelmshaven",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ffb5aa87986bb087134ee47e",
@@ -42748,7 +42952,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "ENB Versicherungen | myenb.ch",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "07c34ed3fa0d6a13272dfbb2",
@@ -42763,7 +42970,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Elohim Law Corporation",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "9b417c35b5e94a1d479b413a",
@@ -42778,7 +42988,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "El Wastani Petroleum Company (WASCO)",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "a0d40112d56863e402f292b4",
@@ -42793,7 +43006,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Editora Irmãos Vitale",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c593f2f54f1aff0144d5299d",
@@ -42808,7 +43024,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Easy Servizi",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ccc731e8b84874e17c9053c9",
@@ -42823,7 +43042,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Don-Nan",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "e3fd47ff0a961901e1844f8f",
@@ -42838,7 +43060,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Clínica La Sabana",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "d8bd81ab62ba809b14954869",
@@ -42853,7 +43078,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "CKR Consulting Engineers",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "b86dd14182084a20bea394a0",
@@ -42868,7 +43096,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "carlysle.net",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "45c44c966e6fab46c896ee5d",
@@ -42883,7 +43114,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "caravaningcity.com",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "e2f5d665a11d2417e071362a",
@@ -42898,7 +43132,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Better House",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ebb70d63dbb87d536a9e7006",
@@ -42913,7 +43150,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "b3-bruck.at",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "f974a569fb8f59b25d1812fa",
@@ -42928,7 +43168,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "B&B Hydraulik",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "4ec4a2a58935bff5330e1118",
@@ -42943,7 +43186,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Almacenes Distribuidores de la Frontera",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "9d943adabfe59e9d8f5b59d7",
@@ -42958,7 +43204,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Alcoholes Finos Dominicanos",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "df084e94006f26c1cdf480ee",
@@ -42973,7 +43222,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "Al Sulaiti Law Firm",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "f49d212df68608897060cf4e",
@@ -42988,7 +43240,10 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "A-Sonic Logistic Solutions",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "bcb7ea23cd9ef29fdfc3963c",
@@ -43003,13 +43258,16 @@
       "listing_state": "listed",
       "source_id": "0f8a15be6d332af11baa",
       "source_host": "payloadrz5yw227brtbvdqpnlhq3rdcdekdnn3rgucbcdeawq2v6vuyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/payload",
+      "post_title": "A A Al Moosa Enterprises (ARENCO Group)",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "92e40e2def8b28816a2dadd9",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "Walbro [ ANNOUNCEMENT ]",
+      "organization": "Walbro",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43018,13 +43276,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "Walbro [ ANNOUNCEMENT ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "b1f37d64b84bfe8670d9c8f1",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "SRP Federal Credit Union [ ALL STOLEN DATA ]",
+      "organization": "SRP Federal Credit Union",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43033,13 +43294,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "SRP Federal Credit Union [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "661424f50bb645f2ebf27a59",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "Research Electronics International [ ALL STOLEN DATA ]",
+      "organization": "Research Electronics International",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43048,13 +43312,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "Research Electronics International [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "7f6f363ce5038d2c3bd3317f",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "Red Barrels [ ALL STOLEN DATA ]",
+      "organization": "Red Barrels",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43063,13 +43330,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "Red Barrels [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "3cf0ebf388b614f9b923e6cc",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "PCCA [ ALL STOLEN DATA ]",
+      "organization": "PCCA",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43078,13 +43348,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "PCCA [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "271118c8cc3135d86f262ef0",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "Labib Funk Associates [ ALL STOLEN DATA ]",
+      "organization": "Labib Funk Associates",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43093,13 +43366,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "Labib Funk Associates [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5fe592eaad04bdd407a1a4f0",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "Global Media Group [ ALL STOLEN DATA ]",
+      "organization": "Global Media Group",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43108,13 +43384,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "Global Media Group [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "fca41beb4e2aec415b2f9cb6",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "FOXCONN [ SALE ]",
+      "organization": "FOXCONN",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43123,13 +43402,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "FOXCONN [ SALE ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ce71ffa4fb301b190fa1ee1b",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "ENENSYS Technologies [ ALL STOLEN DATA ]",
+      "organization": "ENENSYS Technologies",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43138,13 +43420,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "ENENSYS Technologies [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "9e3ed7239a67064b3b217986",
       "group_id": "nitrogen",
       "group_name": "Nitrogen",
-      "organization": "AKTO [ ALL STOLEN DATA ]",
+      "organization": "AKTO",
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43153,13 +43438,16 @@
       "listing_state": "listed",
       "source_id": "22c96f8e3d6f725d83af",
       "source_host": "nitrogenczslprh3xyw6lh5xyjvmsz7ciljoqxxknd7uymkfetfhgvqd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/nitrogen",
+      "post_title": "AKTO [ ALL STOLEN DATA ]",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "096c6224ac97335d89effcbd",
       "group_id": "redact",
       "group_name": "Redact",
-      "organization": "View All â",
+      "organization": null,
       "reported_date": null,
       "country": null,
       "sector": null,
@@ -43168,7 +43456,10 @@
       "listing_state": "listed",
       "source_id": "f18ea6d5f263ff6f3e33",
       "source_host": "neclc36yt4yaa5lv54kh4qbhvjcvuv6nnaurqowkellytpvj3afh4aid.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/redact"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/redact",
+      "post_title": "View All →",
+      "post_type": "headline",
+      "country_basis": null
     },
     {
       "id": "fe4a9ad11e73270984b2b7f5",
@@ -43183,7 +43474,10 @@
       "listing_state": "listed",
       "source_id": "f18ea6d5f263ff6f3e33",
       "source_host": "neclc36yt4yaa5lv54kh4qbhvjcvuv6nnaurqowkellytpvj3afh4aid.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/redact"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/redact",
+      "post_title": "Hologic",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "30cdd3a6548b13433da3e964",
@@ -43198,7 +43492,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Solventa & Riskmetrica | Calificadora de Riesgos",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "c3d22b9eddd6dfcad5afa2f8",
@@ -43213,7 +43510,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "SITTNAK Lojistik A.Ş.",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "382f9e96b664611b670e6f61",
@@ -43228,7 +43528,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Reni Farmácias Associadas",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "91f4e1244d077df474eccd8b",
@@ -43243,7 +43546,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "PAID",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "3983677b06ff2a16974a313a",
@@ -43258,7 +43564,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Mercedes-Benz Turk",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5e0dd03fe827011c30fb9c05",
@@ -43273,7 +43582,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "KOLORKIM KIMYA",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "7cd01e60d640b823036e4070",
@@ -43288,7 +43600,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "iw steelTEC Makine San. ve Tic. A.Ş.",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "78d0db4e417d6dbf79349a72",
@@ -43303,7 +43618,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Innovano",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ccfd480966f2d589a6b62334",
@@ -43318,7 +43636,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "INCOR Group",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "a5fd72834010635ae2dfa2ae",
@@ -43333,7 +43654,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Hospital Di Camp",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "b17072fa6c7168c7f51106ef",
@@ -43348,7 +43672,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Francisco Imóveis",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "5bce5b0a953fdb0061e5c981",
@@ -43363,7 +43690,10 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Charlottesville Police Department",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "d12d094465ffca8706b9236a",
@@ -43378,457 +43708,550 @@
       "listing_state": "listed",
       "source_id": "6970489c636285b39b01",
       "source_host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/doommageddon",
+      "post_title": "Akpera Gayrimenkul Yatırım A.Ş.",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "4ca9f3dbc819316d00d21d9a",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇿🇦 RelyComply AML Platform",
+      "organization": "RelyComply AML Platform",
       "reported_date": null,
-      "country": null,
+      "country": "South Africa",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇿🇦 RelyComply AML Platform",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "ae7bcf03952ae8f88cf252bd",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇿🇦 Cartrack Holdings",
+      "organization": "Cartrack Holdings",
       "reported_date": null,
-      "country": null,
+      "country": "South Africa",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇿🇦 Cartrack Holdings",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "5b4721314ffb73f7ff20fc0f",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Semper Laser",
+      "organization": "Semper Laser",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Semper Laser",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "d5e6c4f0210cad1c13014be5",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Precision Vehicle Logistics",
+      "organization": "Precision Vehicle Logistics",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Precision Vehicle Logistics",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "f1b0c78ab6aabdd585d11978",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 myLaurel",
+      "organization": "myLaurel",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 myLaurel",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "3dc221ffab5b1b6fea69ba72",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Little Otter",
+      "organization": "Little Otter",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Little Otter",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "e3afc9249330158f792682b1",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 HP Carriers",
+      "organization": "HP Carriers",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 HP Carriers",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "e917998a3b64f4c7db5421bd",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Honeycomb Programs Inc",
+      "organization": "Honeycomb Programs Inc",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Honeycomb Programs Inc",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "0108eb576cd0ad6cbdeab924",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Hazel Health",
+      "organization": "Hazel Health",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Hazel Health",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "9fd5092ff2404244b54d8d2a",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 EMS1R",
+      "organization": "EMS1R",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 EMS1R",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "534260fd738c56a53f92c665",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 eAssist Dental Solutions",
+      "organization": "eAssist Dental Solutions",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 eAssist Dental Solutions",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "c8aae2ba31eb1f49647f4961",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Diaco Global",
+      "organization": "Diaco Global",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Diaco Global",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "97c8da19ee8f85b715bf12a9",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Deer Creek-Mackinaw CUSD",
+      "organization": "Deer Creek-Mackinaw CUSD",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Deer Creek-Mackinaw CUSD",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "27288904ab4ddabff3751325",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇺🇸 Allstar Industries",
+      "organization": "Allstar Industries",
       "reported_date": null,
-      "country": null,
+      "country": "United States",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇺🇸 Allstar Industries",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "04d25c807adc139c02bcd0d0",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇹🇷 Erdem Hospital",
+      "organization": "Erdem Hospital",
       "reported_date": null,
-      "country": null,
+      "country": "Turkey",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇹🇷 Erdem Hospital",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "15b3e708a2e9531fe86dd44d",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇹🇭 PTT Oil and Retail Business",
+      "organization": "PTT Oil and Retail Business",
       "reported_date": null,
-      "country": null,
+      "country": "Thailand",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇹🇭 PTT Oil and Retail Business",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "63e62c4b9ecab163d1527860",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇵🇹 ProSim Aviation Research",
+      "organization": "ProSim Aviation Research",
       "reported_date": null,
-      "country": null,
+      "country": "Portugal",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇵🇹 ProSim Aviation Research",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "6b3cbf270905df3ecf4cc0f1",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇲🇾 Port of Tanjung Pelepas",
+      "organization": "Port of Tanjung Pelepas",
       "reported_date": null,
-      "country": null,
+      "country": "Malaysia",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇲🇾 Port of Tanjung Pelepas",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "2b3370e52293011bb26d124e",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇮🇹 Studio Legale ESE",
+      "organization": "Studio Legale ESE",
       "reported_date": null,
-      "country": null,
+      "country": "Italy",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇮🇹 Studio Legale ESE",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "1cd88739ce281427ea4c4c56",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇮🇩 PT Intraco Penta Tbk",
+      "organization": "PT Intraco Penta Tbk",
       "reported_date": null,
-      "country": null,
+      "country": "Indonesia",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇮🇩 PT Intraco Penta Tbk",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "7fd29d1a66f59dd8952a7dcb",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇬🇧 The Revel Collective",
+      "organization": "The Revel Collective",
       "reported_date": null,
-      "country": null,
+      "country": "United Kingdom",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇬🇧 The Revel Collective",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "155a462f41970427a1b66cb1",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇬🇧 Studee",
+      "organization": "Studee",
       "reported_date": null,
-      "country": null,
+      "country": "United Kingdom",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇬🇧 Studee",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "1e7647aa85ffcf9571b16d4c",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇬🇧 Reviso Cloud Accounting Limited",
+      "organization": "Reviso Cloud Accounting Limited",
       "reported_date": null,
-      "country": null,
+      "country": "United Kingdom",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇬🇧 Reviso Cloud Accounting Limited",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "69ee04689dfe3c5b2d5f836a",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇬🇧 Authenticate Information Systems",
+      "organization": "Authenticate Information Systems",
       "reported_date": null,
-      "country": null,
+      "country": "United Kingdom",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇬🇧 Authenticate Information Systems",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "d89bb5b1a8dbc8504035a2a6",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇫🇷 TrainMe",
+      "organization": "TrainMe",
       "reported_date": null,
-      "country": null,
+      "country": "France",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇫🇷 TrainMe",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "9d7fb3d853004d3b5a7a513f",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇨🇱 Hospital Clnico Universidad de Chile",
+      "organization": "Hospital Clnico Universidad de Chile",
       "reported_date": null,
-      "country": null,
+      "country": "Chile",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇨🇱 Hospital Clnico Universidad de Chile",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "75c8b9a8e927a33fc9f6ddc4",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇧🇷 Oportunidados",
+      "organization": "Oportunidados",
       "reported_date": null,
-      "country": null,
+      "country": "Brazil",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇧🇷 Oportunidados",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "fcec17fca0ce0c8438d7ab35",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇦🇹 THQ Nordic",
+      "organization": "THQ Nordic",
       "reported_date": null,
-      "country": null,
+      "country": "Austria",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇦🇹 THQ Nordic",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "33d3c6445219cd5670a27901",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇦🇪 MCT Group of Companies",
+      "organization": "MCT Group of Companies",
       "reported_date": null,
-      "country": null,
+      "country": "United Arab Emirates",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇦🇪 MCT Group of Companies",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "63d3fac54f6fb47d2c8c7add",
       "group_id": "dire-wolf",
       "group_name": "Dire Wolf",
-      "organization": "🇦🇪 iSON XPERIENCES",
+      "organization": "iSON XPERIENCES",
       "reported_date": null,
-      "country": null,
+      "country": "United Arab Emirates",
       "sector": null,
       "first_seen_at": "2026-09-26T13:41:22Z",
       "last_seen_at": "2026-09-26T13:41:22Z",
       "listing_state": "listed",
       "source_id": "614b4068f122963da05f",
       "source_host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/dire-wolf",
+      "post_title": "🇦🇪 iSON XPERIENCES",
+      "post_type": "victim",
+      "country_basis": "flag_inferred"
     },
     {
       "id": "88f6f340d3d9dc464dc82da8",
@@ -43843,7 +44266,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "vit.ac.in",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ae683c31b7dd5857d6394576",
@@ -43858,7 +44284,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "TEK SPB",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "70686bd4948e4777dad7661b",
@@ -43873,7 +44302,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "td***up",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "6972a410752aa5b6c46fb92c",
@@ -43888,7 +44320,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "st***co",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "70ae0f0236a46201f65dac74",
@@ -43903,7 +44338,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "Pr***IT",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "f34f3710c8bace7895f6ce17",
@@ -43918,7 +44356,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "krimax.org",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "29820c44b3766933a3a9376e",
@@ -43933,7 +44374,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "kit-e.jp",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "bd30b9472ef9df4474da34e6",
@@ -43948,7 +44392,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "gownet.net",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "ce407df8cd81bf9202ec7c7d",
@@ -43963,7 +44410,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "dg.ac.kr",
+      "post_type": "victim",
+      "country_basis": null
     },
     {
       "id": "961fcf14595265a48a89359d",
@@ -43978,7 +44428,10 @@
       "listing_state": "listed",
       "source_id": "c66d4e6272f276865272",
       "source_host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
-      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal"
+      "watchguard_profile_url": "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/data-exposure-terminal",
+      "post_title": "[ COOPERATION REACHED ]",
+      "post_type": "victim",
+      "country_basis": null
     }
   ]
 }

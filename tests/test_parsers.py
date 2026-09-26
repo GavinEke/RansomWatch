@@ -154,6 +154,110 @@ class VictimParserTests(unittest.TestCase):
         self.assertEqual(len(parsed["records"]), 2)
         self.assertEqual(parsed["records"][0]["sector"], "Manufacturing")
 
+    def test_headlines_status_tags_country_flags_and_optional_details(self) -> None:
+        parsed = scrape_victims.parse_listing(
+            fixture("leak-headlines-and-details.html"),
+            "https://leak.example.invalid/",
+        )
+        records = {item["post_title"]: item for item in parsed["records"]}
+        for title in ("Welcome", "Important Announcement", "What time does the clock show?", "Passwordstate weak encryption article", "View All →"):
+            self.assertEqual(records[title]["post_type"], "headline")
+            self.assertIsNone(records[title]["organization"])
+        victim = records["🇺🇸 Acme Holdings [ALL STOLEN DATA]"]
+        self.assertEqual(victim["post_type"], "victim")
+        self.assertEqual(victim["organization"], "Acme Holdings")
+        self.assertEqual(victim["country"], "United States")
+        self.assertEqual(victim["country_basis"], "flag_inferred")
+        self.assertEqual(scrape_victims.country_from_flag("🇳🇴 Norway Labs"), ("Norway", "Norway Labs"))
+        self.assertEqual(victim["sector"], "Manufacturing")
+        self.assertEqual(victim["claim_details"], {
+            "description": "The listing says Acme Holdings operates several manufacturing facilities.",
+            "claimed_data_size": "Claimed data: 18 GB",
+            "file_count": "4,200 files",
+            "deadline": "2026-10-01",
+            "organization_website": "acme.example.invalid",
+        })
+        review = records["Announcement for the Terralogic and its clients"]
+        self.assertEqual(review["post_type"], "review")
+        self.assertEqual(review["organization"], "Terralogic")
+        self.assertEqual(records["J.T. Pack of Foods"]["post_type"], "victim")
+        self.assertEqual(records["Leak: Northstar Health [LEAKED]"]["organization"], "Northstar Health")
+        self.assertEqual(records["Leak: Northstar Health [LEAKED]"]["post_type"], "victim")
+        self.assertFalse(any("href" in detail for detail in victim["claim_details"].values()))
+
+    def test_description_is_bounded_and_headline_records_are_retained(self) -> None:
+        long_description = "x" * 620
+        normalized = scrape_victims.normalize_listing_record({
+            "organization": "Acme Corp",
+            "claim_details": {"description": long_description},
+        })
+        self.assertEqual(len(normalized["claim_details"]["description"]), 500)
+        deduped = scrape_victims._dedupe_records([
+            {"organization": "Welcome"},
+            {"organization": "Welcome"},
+            {"organization": "Acme Corp"},
+            {"organization": "Acme Corp", "claim_details": {"file_count": "40 files"}},
+        ])
+        self.assertEqual(len(deduped), 2)
+        acme = next(item for item in deduped if item["organization"] == "Acme Corp")
+        self.assertEqual(acme["claim_details"]["file_count"], "40 files")
+
+    def test_historical_migration_preserves_ids_and_observation_times(self) -> None:
+        previous = [{
+            "id": "legacy-id",
+            "group_id": "group-a",
+            "source_id": "source-a",
+            "organization": "🇺🇸 Acme Corp [ALL STOLEN DATA]",
+            "first_seen_at": "2026-09-01T00:00:00Z",
+            "last_seen_at": "2026-09-20T00:00:00Z",
+            "listing_state": "listed",
+        }, {
+            "id": "headline-id",
+            "group_id": "group-a",
+            "source_id": "source-a",
+            "organization": "Important Announcement",
+            "first_seen_at": "2026-09-02T00:00:00Z",
+            "last_seen_at": "2026-09-21T00:00:00Z",
+            "listing_state": "unknown",
+        }]
+        migrated = scrape_victims.migrate_sightings(previous)
+        acme, announcement = migrated
+        self.assertEqual(acme["id"], "legacy-id")
+        self.assertEqual(acme["organization"], "Acme Corp")
+        self.assertEqual(acme["post_title"], "🇺🇸 Acme Corp [ALL STOLEN DATA]")
+        self.assertEqual(acme["country"], "United States")
+        self.assertEqual(acme["country_basis"], "flag_inferred")
+        self.assertEqual(acme["first_seen_at"], "2026-09-01T00:00:00Z")
+        self.assertEqual(acme["last_seen_at"], "2026-09-20T00:00:00Z")
+        self.assertEqual(announcement["id"], "headline-id")
+        self.assertEqual(announcement["post_type"], "headline")
+        self.assertIsNone(announcement["organization"])
+
+    def test_new_crawl_updates_migrated_sighting_without_changing_legacy_id(self) -> None:
+        source_url = "https://leak.example.invalid/"
+        source_id = scrape_victims.source_id_for(source_url, "group-a")
+        old = {
+            "id": "old-stable-id", "group_id": "group-a", "source_id": source_id,
+            "organization": "Acme Corp [ALL STOLEN DATA]", "first_seen_at": "2026-09-01T00:00:00Z",
+            "last_seen_at": "2026-09-20T00:00:00Z", "listing_state": "unknown",
+        }
+        group = {"group_id": "group-a", "name": "Group A", "profile_url": "https://www.watchguard.com/group-a"}
+        source = {"url": source_url}
+        result = {
+            "source_id": source_id, "source_host": "leak.example.invalid", "status": "ok",
+            "records": [{
+                "organization": "Acme Corp", "post_title": "Acme Corp", "record_id": None,
+                "claim_details": {"file_count": "40 files"},
+            }],
+        }
+        updated = scrape_victims.merge_source_result([old], group, source, result, "2026-09-27T00:00:00Z")
+        self.assertEqual(len(updated), 1)
+        self.assertEqual(updated[0]["id"], "old-stable-id")
+        self.assertEqual(updated[0]["first_seen_at"], "2026-09-01T00:00:00Z")
+        self.assertEqual(updated[0]["last_seen_at"], "2026-09-27T00:00:00Z")
+        self.assertEqual(updated[0]["listing_state"], "listed")
+        self.assertEqual(updated[0]["claim_details"]["file_count"], "40 files")
+
     def test_crawl_reads_one_page_only(self) -> None:
         page_1 = fixture("leak-table-page-1.html")
         calls: list[str] = []
@@ -419,6 +523,14 @@ class StaticSiteTests(unittest.TestCase):
         self.assertIn('href="./styles.css"', html)
         self.assertIn('src="./app.js"', html)
         self.assertIn('const DATA_URL = "./data/victims.json";', javascript)
+        self.assertIn("function victimSightings()", javascript)
+        self.assertIn("function reviewSightings()", javascript)
+        self.assertIn("textContent = value", javascript)
+        self.assertIn("Actor-reported details", javascript)
+        self.assertIn("./data/victims.json", javascript)
+        self.assertIn("Listings are claims published by threat actors", html)
+        self.assertIn("does not confirm that a data breach occurred", html)
+        self.assertIn('id="review-section"', html)
         self.assertIn('"skipped_budget"', javascript)
         self.assertIn('"skipped_inactive"', javascript)
         self.assertIn('"skipped_unscoped_catalog"', javascript)

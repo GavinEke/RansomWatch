@@ -152,15 +152,19 @@ h1 span {
   max-width: 680px;
   margin: 0;
   padding: 0.72rem 0.9rem;
-  border-left: 2px solid #8d70c2;
-  background: rgba(194, 163, 255, 0.07);
-  color: #b2a8c6;
-  font-size: 0.79rem;
+  border: 1px solid rgba(255, 202, 131, 0.34);
+  border-left: 4px solid var(--amber);
+  border-radius: 0.3rem;
+  background: rgba(255, 202, 131, 0.075);
+  color: #e1d2b9;
+  font-size: 0.85rem;
   line-height: 1.6;
 }
 
 .claim-note strong {
-  color: #e0d4f7;
+  display: block;
+  margin-bottom: 0.18rem;
+  color: #ffe0ac;
 }
 
 .metrics {
@@ -266,6 +270,24 @@ h1 span {
 
 .victims-section {
   margin-bottom: 4.5rem;
+}
+
+.review-section {
+  margin: -1.5rem 0 4.5rem;
+}
+
+.review-summary {
+  margin: -0.35rem 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.review-count {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8em;
+  font-weight: 400;
 }
 
 .section-heading {
@@ -380,7 +402,7 @@ td {
   border-top: 1px solid rgba(255, 255, 255, 0.055);
   color: #b5b7c0;
   font-size: 0.75rem;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 tbody tr:hover {
@@ -430,6 +452,50 @@ tbody tr:hover {
   font-size: 0.63rem;
   font-weight: 400;
   text-decoration: none;
+}
+
+td details summary {
+  color: #d1bafa;
+  cursor: pointer;
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.claim-details-list {
+  margin: 0.65rem 0 0;
+  min-width: 180px;
+}
+
+.claim-details-list dt {
+  margin-top: 0.45rem;
+  color: #92949d;
+  font-size: 0.62rem;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.claim-details-list dd {
+  margin: 0.12rem 0 0;
+  color: #d4d4db;
+  font-size: 0.69rem;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.detail-attribution,
+.inferred-label {
+  display: inline-block;
+  margin: 0.45rem 0 0;
+  color: #96909f;
+  font-size: 0.59rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.inferred-label {
+  margin-top: 0.15rem;
 }
 
 .data-footnote {

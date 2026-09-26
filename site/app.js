@@ -11,6 +11,9 @@ const elements = {
   emptyCopy: document.querySelector("#empty-copy"),
   tableWrap: document.querySelector("#table-wrap"),
   rows: document.querySelector("#victim-rows"),
+  reviewSection: document.querySelector("#review-section"),
+  reviewSummary: document.querySelector("#review-summary"),
+  reviewRows: document.querySelector("#review-rows"),
   search: document.querySelector("#search-input"),
   group: document.querySelector("#group-filter"),
   country: document.querySelector("#country-filter"),
@@ -71,6 +74,26 @@ function sourceCount(status) {
   return (dataset?.sources || []).filter((source) => source.status === status).length;
 }
 
+function postType(item) {
+  if (["victim", "headline", "review"].includes(item.post_type)) return item.post_type;
+  // Older schema files have no post_type. Keep them readable and apply the
+  // same obvious headline exclusions until the next collector migration.
+  const title = String(item.post_title || item.organization || "").trim().toLocaleLowerCase();
+  if (["welcome", "important announcement", "home", "about", "contact", "news", "blog", "victims", "victim list", "recent victims", "all victims", "load more", "read more"].includes(title)) return "headline";
+  if (/^announcement\s+(for|about)\b/.test(title)) return "review";
+  if (/^(view all|load more|read more|what time does|what time is|response to |publication hold|press release|statement:|article:)/.test(title)) return "headline";
+  if (/\b(article|interview|press release|announcement)\b/.test(title)) return "headline";
+  return "victim";
+}
+
+function victimSightings() {
+  return (dataset?.sightings || []).filter((item) => postType(item) === "victim");
+}
+
+function reviewSightings() {
+  return (dataset?.sightings || []).filter((item) => postType(item) !== "victim");
+}
+
 function populateSelect(select, values, firstLabel) {
   select.replaceChildren(new Option(firstLabel, ""));
   for (const value of values) {
@@ -79,7 +102,7 @@ function populateSelect(select, values, firstLabel) {
 }
 
 function renderMetrics() {
-  const sightings = dataset.sightings || [];
+  const sightings = victimSightings();
   const listedCount = sightings.filter((item) => normalizedState(item.listing_state) === "listed").length;
   const sourceTotal = (dataset.sources || []).length;
   const sourceOk = sourceCount("ok");
@@ -133,7 +156,7 @@ function renderMetrics() {
 }
 
 function populateFilters() {
-  const sightings = dataset.sightings || [];
+  const sightings = victimSightings();
   const groupNames = new Map();
   for (const item of sightings) {
     if (item.group_id && item.group_name) groupNames.set(item.group_id, item.group_name);
@@ -188,6 +211,49 @@ function addCell(row, className, text) {
   return cell;
 }
 
+function appendClaimDetails(cell, item) {
+  const details = item.claim_details && typeof item.claim_details === "object" ? item.claim_details : {};
+  const entries = [
+    ["Listing description", details.description],
+    ["Claimed data size", details.claimed_data_size],
+    ["Claimed file count", details.file_count],
+    ["Claimed deadline", details.deadline],
+    ["Organization website shown", details.organization_website],
+  ].filter((entry) => typeof entry[1] === "string" && entry[1].trim());
+  if (!entries.length) {
+    cell.textContent = "—";
+    return;
+  }
+  const disclosure = document.createElement("details");
+  const summary = document.createElement("summary");
+  summary.textContent = "Actor-reported details";
+  disclosure.append(summary);
+  const list = document.createElement("dl");
+  list.className = "claim-details-list";
+  for (const [label, value] of entries) {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const description = document.createElement("dd");
+    description.textContent = value;
+    list.append(term, description);
+  }
+  const note = document.createElement("p");
+  note.className = "detail-attribution";
+  note.textContent = "Information displayed by the threat actor; not independently verified.";
+  disclosure.append(list, note);
+  cell.append(disclosure);
+}
+
+function appendCountry(cell, item) {
+  cell.textContent = item.country || "—";
+  if (item.country && item.country_basis === "flag_inferred") {
+    const note = document.createElement("span");
+    note.className = "inferred-label";
+    note.textContent = "Inferred from flag";
+    cell.append(document.createElement("br"), note);
+  }
+}
+
 function makeRow(item) {
   const row = document.createElement("tr");
   const organizationCell = addCell(row, "organization-cell", item.organization);
@@ -196,7 +262,9 @@ function makeRow(item) {
 
   addCell(row, "group-cell", item.group_name);
   addCell(row, "date-cell", item.reported_date || "—");
-  addCell(row, "", item.country);
+  const countryCell = document.createElement("td");
+  appendCountry(countryCell, item);
+  row.append(countryCell);
   addCell(row, "", item.sector);
   addCell(row, "date-cell", displayDate(item.last_seen_at));
 
@@ -207,6 +275,27 @@ function makeRow(item) {
   pill.textContent = stateLabel(state);
   stateCell.append(pill);
   row.append(stateCell);
+  const detailsCell = document.createElement("td");
+  appendClaimDetails(detailsCell, item);
+  row.append(detailsCell);
+  return row;
+}
+
+function makeReviewRow(item) {
+  const row = document.createElement("tr");
+  addCell(row, "organization-cell", item.post_title || item.organization || "Unlabeled listing");
+  addCell(row, "", item.organization || "—");
+  addCell(row, "group-cell", item.group_name);
+  addCell(row, "", postType(item));
+  addCell(row, "date-cell", displayDate(item.last_seen_at));
+  const profileCell = document.createElement("td");
+  const profile = makeProfileLink(item.watchguard_profile_url);
+  if (profile) profileCell.append(profile);
+  else profileCell.textContent = "—";
+  row.append(profileCell);
+  const detailsCell = document.createElement("td");
+  appendClaimDetails(detailsCell, item);
+  row.append(detailsCell);
   return row;
 }
 
@@ -215,7 +304,7 @@ function filteredSightings() {
   const group = elements.group.value;
   const country = elements.country.value;
   const state = elements.state.value;
-  return (dataset.sightings || [])
+  return victimSightings()
     .filter((item) => !query || searchText(item).includes(query))
     .filter((item) => !group || item.group_id === group)
     .filter((item) => !country || item.country === country)
@@ -227,18 +316,27 @@ function renderTable() {
   const items = filteredSightings();
   elements.rows.replaceChildren(...items.map(makeRow));
   elements.resultCount.textContent = items.length.toLocaleString() + " shown";
-  const hasData = (dataset.sightings || []).length > 0;
+  const hasData = victimSightings().length > 0;
+  const hasReview = reviewSightings().length > 0;
   const hasFilters = Boolean(
     elements.search.value || elements.group.value || elements.country.value || elements.state.value,
   );
   elements.tableWrap.hidden = items.length === 0;
   elements.empty.hidden = items.length !== 0;
   if (!items.length) {
-    elements.emptyTitle.textContent = hasData && hasFilters ? "No matching sightings" : "No victim sightings yet";
-    elements.emptyCopy.textContent = hasData && hasFilters
+    elements.emptyTitle.textContent = (hasData || hasReview) && hasFilters ? "No matching sightings" : "No victim claims yet";
+    elements.emptyCopy.textContent = (hasData || hasReview) && hasFilters
       ? "Change a filter or clear the search."
-      : "The dashboard will populate after a successful leak-site crawl.";
+      : hasReview
+        ? "Listings awaiting review appear in the inspection section below."
+        : "The dashboard will populate after a successful leak-site crawl.";
   }
+  const review = reviewSightings().sort((left, right) => sortTimestamp(right) - sortTimestamp(left));
+  elements.reviewSection.hidden = review.length === 0;
+  elements.reviewSummary.textContent = review.length.toLocaleString() + " headline or ambiguous listing(s) retained for inspection; excluded from victim totals.";
+  elements.reviewRows.replaceChildren(...review.map(makeReviewRow));
+  const reviewCount = elements.reviewSection.querySelector("#review-count");
+  if (reviewCount) reviewCount.textContent = review.length.toLocaleString();
 }
 
 async function loadData() {
