@@ -57,6 +57,43 @@ class WatchGuardParserTests(unittest.TestCase):
             [],
         )
 
+    def test_profile_extracts_watchguard_non_heading_extortion_label(self) -> None:
+        markup = """<main>
+          <div>Extortion Links MEDIUM LINK</div>
+          <div><p>Telegram</p><p>https://t.me/group</p></div>
+          <div><p>TOR</p><p>cccccccccccccccc.onion</p></div>
+          <div>Extortion Types Direct Extortion Double Extortion Communication MEDIUM IDENTIFIER</div>
+          <div><p>Email</p><p>https://mail.example.invalid/contact</p></div>
+          <h2>Known Victims</h2>
+          <a href="https://watchguard.widencollective.com/brand">Brand</a>
+        </main>"""
+        section_found, _anchors, _visible_text = refresh_groups._extortion_links_content(
+            refresh_groups.parse_html(markup)
+        )
+        urls = {
+            item["url"]
+            for item in refresh_groups.extract_leak_sites(
+                markup,
+                "https://www.watchguard.com/wgrd-security-hub/ransomware-tracker/group",
+            )
+        }
+        self.assertTrue(section_found)
+        self.assertIn("http://cccccccccccccccc.onion/", urls)
+        self.assertFalse(any("t.me" in value for value in urls))
+        self.assertFalse(any("mail.example.invalid" in value for value in urls))
+        self.assertFalse(any("widencollective" in value for value in urls))
+
+    def test_catalog_refuses_to_replace_catalog_when_active_sources_all_disappear(self) -> None:
+        index = '<table><tr><th>Status</th><th>Group</th></tr><tr><td>Active</td><td><a href="/wgrd-security-hub/ransomware-tracker/endzone">Endzone</a></td></tr></table>'
+        profile = '<main><h2>Communication</h2><a href="https://contact.example.invalid/">Contact</a></main>'
+
+        def fake_fetch(url: str, **_kwargs) -> SimpleNamespace:
+            body = index if "ransomware-tracker" in url and not url.rstrip("/").endswith("endzone") else profile
+            return SimpleNamespace(url=url, body=body)
+
+        with self.assertRaisesRegex(RuntimeError, "No leak-site endpoints were found for active groups"):
+            refresh_groups.collect_groups(fetcher=fake_fetch, sleep=lambda _delay: None)
+
     def test_catalog_walks_all_tracker_pages_and_profiles(self) -> None:
         index_0 = fixture("watchguard-tracker-page-0.html")
         index_1 = fixture("watchguard-tracker-page-1.html")

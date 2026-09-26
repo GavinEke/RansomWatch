@@ -185,33 +185,45 @@ def _site_record(url: str) -> dict | None:
 
 
 def _extortion_links_content(root: Element) -> tuple[bool, list[Element], str]:
-    """Return anchors and visible text under the Extortion Links heading only."""
+    """Return content between WatchGuard's Extortion Links and next-section labels."""
     found = False
     done = False
-    heading_level = 0
     anchors: list[Element] = []
     text_parts: list[str] = []
 
+    def is_extortion_label(value: str) -> bool:
+        normalized = clean_text(value).casefold()
+        return normalized == "extortion links" or bool(
+            re.fullmatch(r"extortion links\s+(?:(?:low|medium|high)\s+)?link", normalized)
+        )
+
+    def is_next_section_label(value: str) -> bool:
+        normalized = clean_text(value).casefold()
+        return normalized.startswith((
+            "extortion types", "communication", "known victims", "known victim",
+        ))
+
     def visit(node: Element) -> None:
-        nonlocal found, done, heading_level
+        nonlocal found, done
         for child in node.children:
             if done:
                 return
             if isinstance(child, str):
                 if found:
+                    if is_next_section_label(child):
+                        done = True
+                        return
                     text_parts.append(child)
                 continue
 
-            is_heading = child.tag in {"h1", "h2", "h3", "h4", "h5", "h6"}
             if not found:
-                if is_heading and clean_text(child.text()).casefold() == "extortion links":
+                if is_extortion_label(child.text()):
                     found = True
-                    heading_level = int(child.tag[1])
                 else:
                     visit(child)
                 continue
 
-            if is_heading and int(child.tag[1]) <= heading_level:
+            if is_next_section_label(child.text()):
                 done = True
                 return
             if child.tag == "a":
@@ -329,6 +341,14 @@ def collect_groups(
             group["profile_checked_at"] = utc_now()
         profiles.append(group)
         sleep(PROFILE_DELAY_SECONDS)
+
+    active_groups = [group for group in profiles if group.get("status") == "active"]
+    active_endpoints = sum(len(group.get("leak_sites", [])) for group in active_groups)
+    if active_groups and active_endpoints == 0:
+        raise RuntimeError(
+            "No leak-site endpoints were found for active groups; "
+            "refusing to replace the catalog"
+        )
 
     return {
         "schema_version": 1,
