@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="A public index of organization names claimed on ransomware group leak sites.">
+    <title>Ransomwatch — victim claims tracker</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Ransomwatch home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>Ransomwatch</span>
+      </a>
+      <a class="source-link" href="https://www.watchguard.com/wgrd-security-hub/ransomware-tracker" target="_blank" rel="noopener noreferrer">
+        WatchGuard source
+        <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main class="page-shell">
+      <section class="intro">
+        <div class="eyebrow"><span class="live-dot"></span> PUBLIC THREAT INTELLIGENCE</div>
+        <h1>Victim claims,<br><span>tracked over time.</span></h1>
+        <p class="intro-copy">A record of organizations named on ransomware group leak sites, gathered from the public WatchGuard group catalog.</p>
+        <p class="claim-note"><strong>Unverified claims:</strong> entries reflect what a group says it has compromised. Inclusion is not independent confirmation.</p>
+      </section>
+
+      <section class="metrics" aria-label="Dataset overview">
+        <article class="metric-card">
+          <span class="metric-label">Historical sightings</span>
+          <strong id="metric-total">—</strong>
+          <span class="metric-foot">Across all tracked groups</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Currently listed</span>
+          <strong id="metric-listed">—</strong>
+          <span class="metric-foot">On the latest successful crawl</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Groups tracked</span>
+          <strong id="metric-groups">—</strong>
+          <span class="metric-foot">From the WatchGuard catalog</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Sources checked</span>
+          <strong id="metric-sources">—</strong>
+          <span class="metric-foot" id="coverage-caption">Coverage status</span>
+        </article>
+      </section>
+
+      <section class="coverage-panel" aria-labelledby="coverage-title">
+        <div class="coverage-heading">
+          <div>
+            <p class="eyebrow">COLLECTION HEALTH</p>
+            <h2 id="coverage-title">Source coverage</h2>
+          </div>
+          <p id="updated-at" class="updated-at">Loading update time…</p>
+        </div>
+        <p id="coverage-summary" class="coverage-summary">Loading crawl status…</p>
+        <div id="coverage-details" class="coverage-details" aria-live="polite"></div>
+      </section>
+
+      <section class="victims-section" aria-labelledby="victims-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">OBSERVED ORGANIZATIONS</p>
+            <h2 id="victims-title">Victim claims</h2>
+          </div>
+          <p id="result-count" class="result-count"></p>
+        </div>
+
+        <div class="filters" role="search">
+          <label class="search-field">
+            <span class="sr-only">Search organizations and groups</span>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Search organization or group…" autocomplete="off">
+          </label>
+          <label>
+            <span class="sr-only">Filter by group</span>
+            <select id="group-filter">
+              <option value="">All groups</option>
+            </select>
+          </label>
+          <label>
+            <span class="sr-only">Filter by country</span>
+            <select id="country-filter">
+              <option value="">All countries</option>
+            </select>
+          </label>
+          <label>
+            <span class="sr-only">Filter by listing state</span>
+            <select id="state-filter">
+              <option value="">All states</option>
+              <option value="listed">Currently listed</option>
+              <option value="not_seen">No longer seen</option>
+              <option value="unknown">Unknown / stale</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="loading-state" class="message-state" role="status">Loading victim data…</div>
+        <div id="error-state" class="message-state error-state" role="alert" hidden>
+          <strong>Victim data could not be loaded.</strong>
+          <span id="error-message">Try again later.</span>
+        </div>
+        <div id="empty-state" class="message-state" hidden>
+          <strong id="empty-title">No matching sightings</strong>
+          <span id="empty-copy">Change a filter or clear the search.</span>
+        </div>
+
+        <div id="table-wrap" class="table-wrap" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Organization</th>
+                <th scope="col">Group</th>
+                <th scope="col">Reported</th>
+                <th scope="col">Country</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Last observed</th>
+                <th scope="col">Listing state</th>
+              </tr>
+            </thead>
+            <tbody id="victim-rows"></tbody>
+          </table>
+        </div>
+        <p class="data-footnote">“Reported” is the date shown by the source, when provided. “Last observed” is when this project last saw the entry. Historical sightings remain after a source removes a listing.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Ransomwatch</span>
+      <span>Metadata only · No leaked files are stored or linked</span>
+    </footer>
+  </body>
+</html>

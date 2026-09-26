@@ -1,0 +1,44 @@
+name: Refresh WatchGuard group catalog
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-watchguard-groups
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out default branch
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install scraper dependency
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Refresh group catalog
+        run: python scripts/refresh_groups.py
+
+      - name: Commit changed catalog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/groups.json
+          if git diff --cached --quiet; then
+            echo "Group catalog is unchanged."
+          else
+            git commit -m "chore(data): refresh WatchGuard group catalog"
+            git push
+          fi

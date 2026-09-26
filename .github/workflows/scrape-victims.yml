@@ -1,0 +1,100 @@
+name: Crawl leak sites and publish dashboard
+
+on:
+  workflow_run:
+    workflows:
+      - Refresh WatchGuard group catalog
+    types:
+      - completed
+  workflow_dispatch:
+
+concurrency:
+  group: scrape-victims-and-publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      - name: Check out default branch
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install scraper dependency
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Check whether Tor is required
+        id: tor_check
+        shell: bash
+        run: |
+          if python scripts/scrape_victims.py --needs-tor; then
+            echo "required=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "required=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install and start Tor
+        if: ${{ steps.tor_check.outputs.required == 'true' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes tor
+          sudo service tor start
+          python - <<'PY'
+          import socket
+          import sys
+          import time
+
+          for _ in range(45):
+              try:
+                  with socket.create_connection(("127.0.0.1", 9050), timeout=1):
+                      print("Tor SOCKS proxy is ready.")
+                      break
+              except OSError:
+                  time.sleep(1)
+          else:
+              print("Tor SOCKS proxy did not start.", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+
+      - name: Crawl leak-site listing pages
+        run: python scripts/scrape_victims.py
+
+      - name: Commit changed sightings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/victims.json
+          if git diff --cached --quiet; then
+            echo "Victim sightings are unchanged."
+          else
+            git commit -m "chore(data): refresh victim sightings"
+            git push
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy dashboard
+        id: deployment
+        uses: actions/deploy-pages@v5
